@@ -1,7 +1,9 @@
 require_relative '../config/environment'
 require 'pry'
 
-User.welcome
-User.mode
 
+person = User.welcome
+character = person.create_character
+character.encounter_hobo
+#binding.pry
 # puts "HELLO WORLD"

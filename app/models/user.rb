@@ -2,7 +2,6 @@ require 'pry'
 class User < ActiveRecord::Base
     has_many :characters
     has_many :items, through: :characters
-    has_many :obstacles, through: :characters
     @@prompt = TTY::Prompt.new
 
     def self.welcome
@@ -12,27 +11,33 @@ class User < ActiveRecord::Base
     end
 
 
-    def self.mode
+    def create_character
         choices_1 = ["TEEN", "SENIOR"]
-        type = @@prompt.multi_select("SELECT YOUR CHARACTER", choices_1, min: 1, max: 1)
+        char = @@prompt.multi_select("SELECT YOUR CHARACTER", choices_1, min: 1, max: 1)
 
         choices_2 = ["HELP!", "GET A JOB!", "(COUGH, COUGH)"]
-        panicCry = @@prompt.multi_select("ENTER YOUR PANIC CRY:", choices_2, min: 1, max: 1)
+        panicCry = @@prompt.multi_select("SELECT YOUR PANIC CRY:", choices_2, min: 1, max: 1)
         # case type
         # when "TEEN"
         #     Character.create(type: type,age: 15, hp: 10, panic_cry: panicCry)
         # when "SENIOR"
         #     Character.create(type: type,age: 60, hp: 5, panic_cry: panicCry)
         # end
-        if type[0] == "TEEN"
+        if char[0] == "TEEN"
             Character.create(
+                user_id: self.id,
+                name: self.name,
+                char_type: char[0],
                 age: 15, 
                 hp: 10, 
-                panic_cry: panicCry
+                panic_cry: panicCry,
                 item_1_id: nil
                 )
-        elsif type[0] == "SENIOR"
+        elsif char[0] == "SENIOR"
             Character.create(
+                user_id: self.id,
+                name: self.name,
+                char_type: char[0],
                 age: 60, 
                 hp: 5, 
                 panic_cry: panicCry,
