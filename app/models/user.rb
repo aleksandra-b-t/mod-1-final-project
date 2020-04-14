@@ -45,4 +45,34 @@ class User < ActiveRecord::Base
             )
         end
     end
+
+    def start_story
+        puts ":::888888888888888888888888888888888888***8888888888888888888888::::88"
+        puts "::::8888888888888888888888P   ____.------.____   488888888888888:::888"
+        puts "::::88888888888888888P __.--||    _._         ||--.__ 4888888888:::888"
+        puts ":::::888888888888P _.-|        .-~ | ~-.             |-._ 488888:::888"
+        puts ":::::888888888P _-|            |   |   |                 |-_ 488::8888"
+        puts "::::::888888P ,'               |  _:_  |                    .-:~--.._8"
+        puts "8:::::88888 ,'            .  .-|~~ | ~~|-.                .~  |      |"
+        puts "88:::::88P /_.-~:.   .   :   |     |     |       .        |   |      |"
+        puts "888::::8P /|    | `.o    !   |     |     |        :       |   |      |"
+        puts " _..--~:-. |    |  |         |     |     |                |   |      |"
+        puts " |      |  ~.   |  |         |  __.:.__  |                |   |      |"
+        puts " |      |   |   |  |       .-|~~   |   ~~|-.              |   |      |"
+        puts " |      |   |  _|.--~:-.   |       |       |         .:~-.|   |      |"
+        puts " |      |   | |      |  ~. |       |   _.-:~--._   .' |   |   |      |"
+        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        puts "                                                                      "
+        puts "                                                                      "
+        puts "THE YEAR... 2020. THE PLACE... NEW YORK CITY."
+        puts "YOU WAKE UP IN YOUR BED TO THE SOUND OF A RINGING TELEPHONE."
+        puts "#{self.name}: HELLO?"
+        puts "#{self.name}!!! IT'S [insert person]. I'VE RAN OUT OF TOILET PAPER!"
+        puts "PLEASE BE A KIND SOUL AND BRING ME SOME?"
+    end
 end
