@@ -32,9 +32,11 @@ end
 
 def death_status
     if self.hp < 1
+        system("clear")
         @@prompt.error("YOU'VE CONTRACTED THE VIRUS!")
         puts "                                                "
         puts "                                                "
+        sleep(1)
         @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼")
         @@prompt.error("▄██▀▀▀█▄┼▄██▀▀▀██▄┼███▀█▄█▀███┼██▀▀▀")
         @@prompt.error("██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼█┼┼┼██┼██┼┼┼")
