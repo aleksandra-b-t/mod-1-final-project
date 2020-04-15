@@ -3,13 +3,32 @@ class Character < ActiveRecord::Base
     belongs_to :item
     @@prompt = TTY::Prompt.new
 
+
+    def pick_item 
+        puts "THERE ARE THREE ITEEMS ON YOUR KITCHEN TABLE."
+        choices = ["PURELL", "RUBBER GLOVES", "FACE MASK"]
+        response = @@prompt.multi_select('WHICH DO YOU GRAB BEFORE LEAVING THE HOUSE?', choices, min: 1, max: 1)
+
+        case response[0]
+
+        when "PURELL"
+
+        when "RUBBER GLOVES"
+            puts "GREAT CHOICE. NO HEALTH POINTS DEDUCTED"
+        when "FACE MASK"
+            puts "GOOD CALL! ONLY DEDUCT ONE HEALTH POINT"
+            self.hp -= 2
+        end 
+    
+    end 
+
     def start_story
 
         if self.char_type == "TEEN"
             importantperson = "YOUR GRANDMOTHER"
         elsif self.char_type == "ADULT"
             importantperson = "YOUR ELDERLY MOTHER"
-        elsif self.char_type = "SENIOR"
+        elsif self.char_type == "SENIOR"
             importantperson = "YOUR DISABLED ADULT CHILD"
         end 
 
