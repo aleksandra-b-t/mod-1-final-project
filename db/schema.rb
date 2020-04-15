@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_155909) do
+ActiveRecord::Schema.define(version: 2020_04_15_220552) do
 
   create_table "characters", force: :cascade do |t|
     t.integer "user_id"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2020_04_15_155909) do
     t.string "face_mask"
     t.string "rubber_glove"
     t.boolean "lysol"
+    t.string "important_person"
   end
 
 end

@@ -7,15 +7,63 @@ class User < ActiveRecord::Base
     has_many :lysols 
     @@prompt = TTY::Prompt.new
 
+    def self.graveyard 
+       person = self.all.last.name 
+    puts "        _  /)"
+    puts "        mo / )"
+    puts "        |/)\)"
+    puts "         /\_"
+    puts "         \__|="
+    puts "        (    )"
+    puts "        __)(__"
+    puts "  _____/      \\_____"
+    puts " |  _     ___   _   ||"
+    puts " | | \     |   | \  ||"
+    puts " | |  |    |   |  | ||"
+    puts " | |_/     |   |_/  ||"
+    puts " | | \     |   |    ||"
+    puts " | |  \    |   |    ||"
+    puts " | |   \. _|_. | .  ||"
+    puts " |                  ||"
+    puts " |  #{person}  ||"
+    puts " |                  ||"
+puts "*       | *   **    * **   |**      **"
+puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"  
+    end 
 
-    # def characters
-    #     Character.all
-    #     # Character.all.select { |char| char.user_id == self.id }
-    # end
 
-    # def health_points
-    #     characters.map { |char| char.starting_hp }
-    # end
+    def buying_toilet_paper 
+    system("clear")
+    puts "FINALLY #{self.name.upcase} YOU HAVE MADE IT TO THE DELI"
+    puts " "
+    puts "TO YOUR DISMAY THE STORE IS ALMOST OUT OF TOILET PAPER"
+    puts " "
+    toilet_choices
+    end 
+
+    def toilet_choices 
+     choices = ["SINGLE PLY", "FANCY CHARMIN", "BODEGA BRAND RECYLEABLE"]
+     paper = @@prompt.multi_select("WHICH DO YOU PICK:", choices, min: 1, max: 1)
+    case paper[0]
+    when "SINGLE PLY"
+        puts "YOUR #{self.important_person} IS GOING TO LOVE IT!"
+        puts " "
+        puts "CONGRADUATIONS YOUR GOT YOUR TOILET PAPER AND WON THE GAME"
+        #holding up toilet paper art?
+    when "FANCY CHARMIN"
+        puts "YOU PICK UP THE TOILET PAPER BUT THE BODEGA CAT HAS ALREADY GOTTEN TO IT"
+        puts " "
+        puts "YOU SNEEZE AND TOUCH YOUR FACE"
+        puts " "
+        puts "YOU HAVE BEEN INFECTED"
+        self.hp -= 40
+    when "BODEGA BRAND RECYLEABLE"
+      puts "ODD CHOICE! CONGRADULATIONS YOU HAVE SUCCESSFUL GOTTEN #{self.important_person} THEIR TOILET PAPER AND WON THE GAME"
+      #holding up toilet paper art?
+     end 
+     sleep(3)
+    self.death_status
+   end 
 
     def self.welcome
         system("clear")
@@ -29,23 +77,25 @@ class User < ActiveRecord::Base
         panicCry = @@prompt.multi_select("SELECT YOUR PANIC CRY:", choices_2, min: 1, max: 1)
    
         if char[0] == "TEEN"
-            User.create(
-                name: username.upcase,
-                hp: 10, 
-                panic_cry: panicCry,
-                )
+            person = User.create( name: username.upcase, hp: 10, panic_cry: panicCry[0])
+            person.start_story
+            person.see_a_friend
+            person.buying_toilet_paper
+
+
         elsif char[0] == "SENIOR"
-            User.create(
-                name: username.upcase,
-                hp: 5, 
-                panic_cry: panicCry,
-            )
+            person = User.create( name: username.upcase, hp: 5, panic_cry: panicCry[0])
+            person.start_story
+            person.see_a_cute_dog
+            person.buying_toilet_paper
+            
+
         elsif char[0] == "ADULT"
-            User.create(
-                name: username.upcase,
-                hp: 7, 
-                panic_cry: panicCry,
-            )
+            person = User.create(name: username.upcase, hp: 7, panic_cry: panicCry[0])
+            person.start_story
+            person.encounter_hobo
+            person.buying_toilet_paper
+
         end
     end
 
@@ -64,9 +114,11 @@ class User < ActiveRecord::Base
 
     def pick_item 
         sleep(2)
+        puts "YOU WONDER OUT OF BED AND PUT ON SOME SWEATPAINTS"
+        puts " "
         puts "THERE ARE THREE ITEMS ON YOUR KITCHEN TABLE."
         choices = ["PURELL", "RUBBER GLOVES", "FACE MASK"]
-        response = @@prompt.multi_select('WHAT DO YOU GRAB BEFORE LEAVING THE HOUSE?', choices, min: 2, max: 2)
+        response = @@prompt.multi_select('WHAT DO YOU GRAB BEFORE LEAVING THE HOUSE?', choices, min: 1, max: 1)
        
        # binding.pry 
         case response[0]
@@ -82,30 +134,30 @@ class User < ActiveRecord::Base
             self.face_mask = item
         end 
        
-        case response[1]
+        # case response[1]
         
-        when "PURELL" 
-            item = Purell.create 
-            self.purell = item
-        when "RUBBER GLOVES"
-            item = RubberGlove.create
-            self.rubber_glove = item
-        when "FACE MASK"
-            item = FaceMask.create
-            self.face_mask = item
-        end 
+        # when "PURELL" 
+        #     item = Purell.create 
+        #     self.purell = item
+        # when "RUBBER GLOVES"
+        #     item = RubberGlove.create
+        #     self.rubber_glove = item
+        # when "FACE MASK"
+        #     item = FaceMask.create
+        #     self.face_mask = item
+        # end 
         sleep(2)
-      puts "#{self.name} GRABS THE ITEMS AND GETS READY TO GO!" 
+      puts "#{self.name} GRABS THE ITEMS LEAVES!" 
     end 
 
     def start_story
 
         if self.hp == 10
-            importantperson = "YOUR GRANDMOTHER"
+            self.important_person = "YOUR GRANDMOTHER"
         elsif self.hp == 7
-            importantperson = "YOUR ELDERLY MOTHER"
+            self.important_person = "YOUR ELDERLY MOTHER"
         elsif self.hp == 5
-            importantperson = "YOUR DISABLED ADULT CHILD"
+            self.important_person = "YOUR DISABLED ADULT CHILD"
         end 
 
         system("clear")
@@ -143,10 +195,11 @@ class User < ActiveRecord::Base
         puts "#{self.name.upcase}: HELLO?"
         puts "                                                                      "
         sleep(2)
-        puts "#{self.name.upcase}!!! IT'S #{importantperson}. I RAN OUT OF TOILET PAPER!"
+        puts "#{self.name.upcase}!!! IT'S #{self.important_person}. I RAN OUT OF TOILET PAPER!"
         puts "PLEASE BE A KIND SOUL AND BRING ME SOME?"
         puts "                                                                      "
         sleep(2)
+        self.pick_item
 
 end
 
@@ -239,15 +292,24 @@ def encounter_hobo
     puts "                                                "
     sleep(1)
     if response[0] == "USE PANIC CRY!"
-        if self.panic_cry == "[\"HELP!\"]"
+        if self.panic_cry == "HELP!"
             self.hp -= 2
+            puts "#{self.name}: HELP!"
+            puts " "
             puts "THE HOBO TRIES TO COVER YOUR MOUTH BUT YOU MANAGE TO ESCAPE AND RUN AWAY. (LOSE 2 HEALTH POINTS)"
-        elsif self.panic_cry == "[\"GET A JOB!\"]"
+            sleep(3)
+        elsif self.panic_cry == "GET A JOB!"
             self.hp -= 5
+            puts "#{self.name}: GET A JOB!"
+            puts " "
             puts "THE HOBO GETS ANGRY AND SPITS ON YOU. (LOSE 5 HEALTH POINTS)"
-        elsif self.panic_cry == "[\"(COUGH, COUGH)\"]"
+            sleep(3)
+        elsif self.panic_cry == "(COUGH, COUGH)"
             self.hp -= 1
+            puts "#{self.name}: (COUGH,COUGH)"
+            puts " "
             puts "THE HOBO BECOMES AFRAID THAT YOU MIGHT HAVE COVID-19 AND WALKS PAST YOU. (LOSE 1 HEALTH POINT)"
+            sleep(3)
         end
     else
         puts "THE HOBO GASPS AND YOU MAKE A CLEAN GETAWAY. (NO HEALTH POINTS DEDUCTED)"
