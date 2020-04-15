@@ -78,7 +78,6 @@ class User < ActiveRecord::Base
         puts "#{self.name.upcase}: HELLO?"
         puts "                                                                      "
         puts "#{self.name.upcase}!!! IT'S [insert person]. I RAN OUT OF TOILET PAPER!"
-        puts "                                                                      "
         puts "PLEASE BE A KIND SOUL AND BRING ME SOME?"
         puts "                                                                      "
     end
