@@ -1,6 +1,6 @@
-class CreateLysol < ActiveRecord::Migration[6.0]
+class CreateLysols < ActiveRecord::Migration[6.0]
   def change
-    create_table :lysol do |t|
+    create_table :lysols do |t|
       t.string :name, default: "LYSOL"
       # t.integer :usage, default: 2
       # t.integer :hp, default: 5

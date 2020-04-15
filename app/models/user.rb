@@ -33,7 +33,6 @@ class User < ActiveRecord::Base
                 age: 15, 
                 hp: 10, 
                 panic_cry: panicCry,
-                item_1_id: nil
                 )
         elsif char[0] == "SENIOR"
             Character.create(
@@ -43,7 +42,6 @@ class User < ActiveRecord::Base
                 age: 60, 
                 hp: 5, 
                 panic_cry: panicCry,
-                item_1_id: nil
             )
         elsif char[0] == "ADULT"
             Character.create(
@@ -53,7 +51,6 @@ class User < ActiveRecord::Base
                 age: 35, 
                 hp: 7, 
                 panic_cry: panicCry,
-                item_1_id: nil
             )
         end
     end

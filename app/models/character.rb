@@ -1,13 +1,22 @@
+require 'pry'
 class Character < ActiveRecord::Base
     belongs_to :user
-    belongs_to :item
+    belongs_to :lysol
+    belongs_to :purell 
+    belongs_to :rubber_glove
+    belongs_to :face_mask
     @@prompt = TTY::Prompt.new
 
 
     def apply_purell
-        if self.item_1_id || self.item_2_id == "PURELL"
+        system("clear")
+        sleep(2)
+        if self.purell 
             puts "YOU USED YOUR PURELL. ADD 2 HEALTH POINTS"
+            self.hp += 2
         end 
+        sleep(2)
+        puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
     end 
 
 
@@ -15,37 +24,43 @@ class Character < ActiveRecord::Base
         system("clear")
         sleep(2)
         puts "THERE ARE THREE ITEMS ON YOUR KITCHEN TABLE."
-        choices = ["PURELL", "RUBBER GLOVES", "FACE MASK"]
+        choices = ["PURELL", "RUBBER GLOVES", "FACE MASK", "LYSOL"]
         response = @@prompt.multi_select('WHAT DO YOU GRAB BEFORE LEAVING THE HOUSE?', choices, min: 2, max: 2)
        
+       # binding.pry 
         case response[0]
         
         when "PURELL" 
-            item = Item.find_or_create_by(name: "PURELL", hp: 2, usage: 3)
-            self.item_1_id << item
+            item = Purell.create 
+            self.purell = item
         when "RUBBER GLOVES"
-            item = Item.find_or_create_by(name: "RUBBER GLOVES", usage: 1)
-            self.item_1_id << item
+            item = RubberGlove.create
+            self.rubber_glove = item
         when "FACE MASK"
-            item = Item.find_or_create_by(name: "FACE MASK", hp: 5, usage: 6)
-            self.item_1_id << item
+            item = FaceMask.create
+            self.face_mask = item
+        when "LYSOL"
+            Lysol.create 
+            self.lysol = true 
         end 
        
         case response[1]
         
         when "PURELL" 
-            item = Item.find_or_create_by(name: "PURELL", hp: 2, usage: 3)
-            self.item_2_id << item
-            
-         when "RUBBER GLOVES"
-            item = Item.find_or_create_by(name: "RUBBER GLOVES", usage: 1)
-            self.item_2_id << item
-
-         when "FACE MASK"
-            item = Item.find_or_create_by(name: "FACE MASK", hp: 5, usage: 6)
-            self.item_2_id << item
-         end 
-      puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
+            item = Purell.create 
+            self.purell = item
+        when "RUBBER GLOVES"
+            item = RubberGlove.create
+            self.rubber_glove = item
+        when "FACE MASK"
+            item = FaceMask.create
+            self.face_mask = item
+        when "LYSOL"
+            Lysol.create 
+            self.lysol = true 
+        end 
+        sleep(2)
+      puts "#{self.name} GRABS THE ITEMS AND GETS READY TO GO!" 
     end 
 
     def start_story

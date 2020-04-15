@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_160010) do
+ActiveRecord::Schema.define(version: 2020_04_15_183450) do
 
   create_table "characters", force: :cascade do |t|
     t.integer "user_id"
@@ -20,17 +20,17 @@ ActiveRecord::Schema.define(version: 2020_04_15_160010) do
     t.integer "hp"
     t.string "panic_cry"
     t.string "endgame", default: "lose"
-    t.string "rubber_gloves"
+    t.string "rubber_glove"
     t.string "face_mask"
     t.integer "turns"
     t.string "purell"
     t.integer "purell_id"
-    t.integer "rubber_gloves_id"
-    t.integer "face_mask_id"
+    t.integer "rubberglove_id"
+    t.integer "facemask_id"
     t.boolean "lysol"
   end
 
-  create_table "facemask", force: :cascade do |t|
+  create_table "facemasks", force: :cascade do |t|
     t.string "name", default: "FACE MASK"
     t.integer "usage", default: 1
     t.integer "hp", default: 6
@@ -42,11 +42,11 @@ ActiveRecord::Schema.define(version: 2020_04_15_160010) do
     t.integer "usage"
   end
 
-  create_table "lysol", force: :cascade do |t|
+  create_table "lysols", force: :cascade do |t|
     t.string "name", default: "LYSOL"
   end
 
-  create_table "purell", force: :cascade do |t|
+  create_table "purells", force: :cascade do |t|
     t.string "name", default: "PURELL"
     t.integer "usage", default: 4
     t.integer "hp", default: 2

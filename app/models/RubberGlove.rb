@@ -1,0 +1,3 @@
+class RubberGlove < ActiveRecord::Base 
+    has_many :characters
+end 

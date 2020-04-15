@@ -1,7 +1,7 @@
 require_relative '../config/environment'
 require 'pry'
 Character.delete_all
-
+ActiveRecord::Base.logger = nil
 
 person = User.welcome
 character = person.create_character
