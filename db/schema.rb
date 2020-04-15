@@ -10,57 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_183450) do
+ActiveRecord::Schema.define(version: 2020_04_15_155909) do
 
   create_table "characters", force: :cascade do |t|
     t.integer "user_id"
-    t.string "name"
     t.string "char_type"
-    t.integer "age"
-    t.integer "hp"
-    t.string "panic_cry"
-    t.string "endgame", default: "lose"
-    t.string "rubber_glove"
-    t.string "face_mask"
-    t.integer "turns"
-    t.string "purell"
-    t.integer "purell_id"
-    t.integer "rubberglove_id"
-    t.integer "facemask_id"
-    t.boolean "lysol"
+    t.integer "starting_hp"
   end
 
-  create_table "facemasks", force: :cascade do |t|
+  create_table "face_masks", force: :cascade do |t|
     t.string "name", default: "FACE MASK"
     t.integer "usage", default: 1
     t.integer "hp", default: 6
-  end
-
-  create_table "items", force: :cascade do |t|
-    t.string "name"
-    t.integer "hp"
-    t.integer "usage"
+    t.integer "user_id"
   end
 
   create_table "lysols", force: :cascade do |t|
     t.string "name", default: "LYSOL"
+    t.integer "user_id"
   end
 
   create_table "purells", force: :cascade do |t|
     t.string "name", default: "PURELL"
     t.integer "usage", default: 4
     t.integer "hp", default: 2
+    t.integer "user_id"
   end
 
-  create_table "rubbergloves", force: :cascade do |t|
+  create_table "rubber_gloves", force: :cascade do |t|
     t.string "name", default: "RUBBER GLOVES"
     t.integer "usage", default: 1
     t.integer "hp", default: 10
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "panic_cry"
+    t.integer "hp"
+    t.integer "turns"
+    t.string "endgame", default: "lose"
+    t.string "purell"
+    t.string "face_mask"
+    t.string "rubber_glove"
+    t.boolean "lysol"
   end
 
 end

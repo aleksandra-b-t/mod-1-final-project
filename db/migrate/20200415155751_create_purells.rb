@@ -4,6 +4,7 @@ class CreatePurells < ActiveRecord::Migration[6.0]
       t.string :name, default: "PURELL"
       t.integer :usage, default: 4
       t.integer :hp, default: 2
+      t.integer :user_id 
     end
   end
 end
