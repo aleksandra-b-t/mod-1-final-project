@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
     def self.welcome
         username = @@prompt.ask('ENTER YOUR PLAYER NAME:') 
-        puts "WELCOME #{username}!"
+        puts "WELCOME #{username.upcase}!"
         User.find_or_create_by(name: username)
     end
 
@@ -70,9 +70,16 @@ class User < ActiveRecord::Base
         puts "                                                                      "
         puts "                                                                      "
         puts "THE YEAR... 2020. THE PLACE... NEW YORK CITY."
+        puts "                                                                      "
+        puts "IT'S DAY 187 SINCE THE COVID-19 PANDEMIC BEGAN."
+        puts "                                                                      "
         puts "YOU WAKE UP IN YOUR BED TO THE SOUND OF A RINGING TELEPHONE."
-        puts "#{self.name}: HELLO?"
-        puts "#{self.name}!!! IT'S [insert person]. I'VE RAN OUT OF TOILET PAPER!"
+        puts "                                                                      "
+        puts "#{self.name.upcase}: HELLO?"
+        puts "                                                                      "
+        puts "#{self.name.upcase}!!! IT'S [insert person]. I RAN OUT OF TOILET PAPER!"
+        puts "                                                                      "
         puts "PLEASE BE A KIND SOUL AND BRING ME SOME?"
+        puts "                                                                      "
     end
 end
