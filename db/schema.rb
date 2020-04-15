@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_203341) do
+ActiveRecord::Schema.define(version: 2020_04_15_144420) do
 
   create_table "characters", force: :cascade do |t|
     t.integer "user_id"
@@ -19,8 +19,11 @@ ActiveRecord::Schema.define(version: 2020_04_14_203341) do
     t.integer "age"
     t.integer "hp"
     t.string "panic_cry"
-    t.integer "item_1_id"
     t.string "endgame", default: "lose"
+    t.string "item_2_id"
+    t.string "item_3_id"
+    t.integer "turns"
+    t.string "item_1_id"
   end
 
   create_table "items", force: :cascade do |t|

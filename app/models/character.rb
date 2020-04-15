@@ -4,22 +4,48 @@ class Character < ActiveRecord::Base
     @@prompt = TTY::Prompt.new
 
 
-    def pick_item 
-        puts "THERE ARE THREE ITEEMS ON YOUR KITCHEN TABLE."
-        choices = ["PURELL", "RUBBER GLOVES", "FACE MASK"]
-        response = @@prompt.multi_select('WHICH DO YOU GRAB BEFORE LEAVING THE HOUSE?', choices, min: 1, max: 1)
-
-        case response[0]
-
-        when "PURELL"
-
-        when "RUBBER GLOVES"
-            puts "GREAT CHOICE. NO HEALTH POINTS DEDUCTED"
-        when "FACE MASK"
-            puts "GOOD CALL! ONLY DEDUCT ONE HEALTH POINT"
-            self.hp -= 2
+    def apply_purell
+        if self.item_1_id || self.item_2_id == "PURELL"
+            puts "YOU USED YOUR PURELL. ADD 2 HEALTH POINTS"
         end 
-    
+    end 
+
+
+    def pick_item 
+        system("clear")
+        sleep(2)
+        puts "THERE ARE THREE ITEMS ON YOUR KITCHEN TABLE."
+        choices = ["PURELL", "RUBBER GLOVES", "FACE MASK"]
+        response = @@prompt.multi_select('WHAT DO YOU GRAB BEFORE LEAVING THE HOUSE?', choices, min: 2, max: 2)
+       
+        case response[0]
+        
+        when "PURELL" 
+           Item.find_or_create_by(name: "PURELL", hp: 2, usage: 3)
+           self.item_1_id = "PURELL"
+        when "RUBBER GLOVES"
+            Item.find_or_create_by(name: "RUBBER GLOVES", usage: 1)
+            self.item_1_id = "RUBBER GLOVES"
+        when "FACE MASK"
+            Item.find_or_create_by(name: "FACE MASK", hp: 5, usage: 6)
+            self.item_1_id = "FACE MASK"
+        end 
+       
+        case response[1]
+        
+        when "PURELL" 
+            Item.find_or_create_by(name: "PURELL", hp: 2, usage: 3)
+            self.item_2_id = "PURELL"
+            
+         when "RUBBER GLOVES"
+             Item.find_or_create_by(name: "RUBBER GLOVES", usage: 1)
+             self.item_2_id = "RUBBER GLOVES"
+
+         when "FACE MASK"
+             Item.find_or_create_by(name: "FACE MASK", hp: 5, usage: 6)
+             self.item_2_id = "FACE MASK"
+         end 
+      puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
     end 
 
     def start_story
@@ -75,12 +101,14 @@ class Character < ActiveRecord::Base
 end
 
 def see_a_friend 
+    system("clear")
     puts "NAVIGATING YOUR WAY THROUGH THE EMPTY STREETS YOU SEE A FAMILIAR FACE"
+    sleep(2)
     puts "IT'S YOUR FRIEND GREG WAVING AT YOU FROM ACCROSS THE STREET"
-
+    sleep(2)
     choices = ["SPRAY LYSOL IN HIS DIRECTION AND RUN AWAY", "SMILE AND WAVE FROM A FAR", "HE LOOKS HEALTHY! CROSS THE STREET AND SAY HELLO."]
     response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
-
+    sleep(2)
     case response[0]
     when "SPRAY LYSOL IN HIS DIRECTION AND RUN AWAY" || "SMILE AND WAVE FROM A FAR"
         puts "GOOD WORK! NO HEALTH POINTS DEDUCTED"
@@ -104,19 +132,25 @@ def see_a_friend
 end 
 
 def see_a_cute_dog 
-  puts "You see a cute dog on the street wagging her tail"
-  puts "She is on a leash at least six feet from her owner"
-  puts "|\_/|"                  
-  puts "| @ @   Woof!"
-  puts "|   <>              _"
-  puts "|  _/\------____ ((| |))"
-  puts "|               `--' |"  
-  puts "____|_       ___|   |___.'"
-  puts "/_/_____/____/_______|"   
+    system("clear")
+    sleep(2)
+    @@prompt.warn ("You see a cute dog on the street wagging her tail")
+    sleep(2)
+    @@prompt.warn ("She is on a leash at least six feet from her owner")
+    sleep(2)
+    @@prompt.warn ("|\_/|")                  
+    @@prompt.warn ("| @ @   Woof!")
+    @@prompt.warn ("|   <>              _")
+    @@prompt.warn ("|  _/\------____ ((| |))")
+    @@prompt.warn ("|               `--' |")  
+    @@prompt.warn ("____|_       ___|   |___.'")
+    @@prompt.warn  ("/_/_____/____/_______|")  
+
+    sleep(2)
   
   choices = ["GO OVER AND PET HER!", "BEND DOWN AND LET HER LICK YOUR FACE", "CROSS THE STREET."]
   response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
-
+   sleep(2)
   case response[0]
   when "GO OVER AND PET HER!"
     puts "YOU GOT TO PET A DOG BUT UNFORNATELY SHE WAS CARRYING THE VIRUS. LOSE 4 HEALTH POINTS."
@@ -135,6 +169,7 @@ end
 
 
 def encounter_hobo
+    system("clear")
     puts "AS YOU CONTINUE DOWN THE BLOCK, YOU SEE A HOMELESS MAN COMING YOUR WAY."
     puts "                                                "
     choices = ["USE PANIC CRY!", "SPRAY HIM WITH LYSOL AND RUN!"]
