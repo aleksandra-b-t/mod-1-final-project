@@ -4,11 +4,10 @@ Character.delete_all
 ActiveRecord::Base.logger = nil
 
 person = User.welcome
-character = person.create_character
-character.start_story
-character.pick_item 
-character.see_a_friend 
-character.see_a_cute_dog
-character.encounter_hobo
+person.start_story
+person.pick_item 
+person.see_a_friend 
+person.see_a_cute_dog
+person.encounter_hobo
 #binding.pry
 # puts "HELLO WORLD"

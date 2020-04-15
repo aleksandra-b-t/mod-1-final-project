@@ -7,11 +7,10 @@ class Character < ActiveRecord::Base
     belongs_to :facemask
     @@prompt = TTY::Prompt.new
 
-   def self.hp
-      Character.all.find do |char|
-        char.
-   end 
-
+   # def self.hp
+   #    Character.all.find do |char|
+   #      char.
+   # end 
 
 
 

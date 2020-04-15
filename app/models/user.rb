@@ -7,6 +7,16 @@ class User < ActiveRecord::Base
     has_many :lysols 
     @@prompt = TTY::Prompt.new
 
+
+    # def characters
+    #     Character.all
+    #     # Character.all.select { |char| char.user_id == self.id }
+    # end
+
+    # def health_points
+    #     characters.map { |char| char.starting_hp }
+    # end
+
     def self.welcome
         system("clear")
         username = @@prompt.ask('ENTER YOUR PLAYER NAME:') 
@@ -21,13 +31,13 @@ class User < ActiveRecord::Base
         if char[0] == "TEEN"
             User.create(
                 name: username.upcase,
-                hp: teen.starting_hp, 
+                hp: 10, 
                 panic_cry: panicCry,
                 )
         elsif char[0] == "SENIOR"
             User.create(
                 name: username.upcase,
-                hp: senior.starting_hp, 
+                hp: 5, 
                 panic_cry: panicCry,
             )
         elsif char[0] == "ADULT"
@@ -90,11 +100,11 @@ class User < ActiveRecord::Base
 
     def start_story
 
-        if self.char_type == "TEEN"
+        if self.hp == 10
             importantperson = "YOUR GRANDMOTHER"
-        elsif self.char_type == "ADULT"
+        elsif self.hp == 7
             importantperson = "YOUR ELDERLY MOTHER"
-        elsif self.char_type == "SENIOR"
+        elsif self.hp == 5
             importantperson = "YOUR DISABLED ADULT CHILD"
         end 
 
@@ -136,7 +146,7 @@ class User < ActiveRecord::Base
         puts "#{self.name.upcase}!!! IT'S #{importantperson}. I RAN OUT OF TOILET PAPER!"
         puts "PLEASE BE A KIND SOUL AND BRING ME SOME?"
         puts "                                                                      "
-        sleep(5)
+        sleep(2)
 
 end
 
@@ -144,20 +154,25 @@ def see_a_friend
     system("clear")
     puts "NAVIGATING YOUR WAY THROUGH THE EMPTY STREETS YOU SEE A FAMILIAR FACE"
     sleep(2)
+    puts " "
     puts "IT'S YOUR FRIEND GREG WAVING AT YOU FROM ACCROSS THE STREET"
     sleep(2)
+    puts " "
     choices = ["SPRAY LYSOL IN HIS DIRECTION AND RUN AWAY", "SMILE AND WAVE FROM A FAR", "HE LOOKS HEALTHY! CROSS THE STREET AND SAY HELLO."]
     response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
     sleep(2)
+    puts " "
     case response[0]
-    when "SPRAY LYSOL IN HIS DIRECTION AND RUN AWAY" || "SMILE AND WAVE FROM A FAR"
+    when "SPRAY LYSOL IN HIS DIRECTION AND RUN AWAY"
+        puts "TAKE THAT GREG! YOU ADVANCE WITH NO HEALTH POINTS DEDUCTED"
+    when "SMILE AND WAVE FROM A FAR"
         puts "GOOD WORK! NO HEALTH POINTS DEDUCTED"
     when "HE LOOKS HEALTHY! CROSS THE STREET AND SAY HELLO."
         puts "HE IS HAPPY TO SEE YOU AN OFFERS YOU A CIGARETTE"
-
+        puts " "
         choices = ["GREAT! THIS TRIP HAS BEEN STRESSFUL I COULD REALLY USE ONE.", "NO THANK YOU, GREG!"]
         response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
-
+        puts " "
         if response[0] == "GREAT! THIS TRIP HAS BEEN STRESSFUL I COULD REALLY USE ONE."
             puts "YOU HAVE COME IN CONTACT WITH THE VIRUS. LOSE 5 HEALTH POINTS."
             self.hp -= 5
@@ -167,16 +182,20 @@ def see_a_friend
         end 
 
     end 
+    puts " "
     puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
+    sleep(3)
     self.death_status
 end 
 
 def see_a_cute_dog 
     system("clear")
     sleep(2)
-    @@prompt.warn ("You see a cute dog on the street wagging her tail")
+    @@prompt.warn ("You see a cute dog on the street wagging her tail").upcase
+    puts " "
     sleep(2)
-    @@prompt.warn ("She is on a leash at least six feet from her owner")
+    @@prompt.warn ("She is on a leash at least six feet from her owner").upcase
+    puts " "
     sleep(2)
     @@prompt.warn ("|\_/|")                  
     @@prompt.warn ("| @ @   Woof!")
@@ -185,12 +204,13 @@ def see_a_cute_dog
     @@prompt.warn ("|               `--' |")  
     @@prompt.warn ("____|_       ___|   |___.'")
     @@prompt.warn  ("/_/_____/____/_______|")  
-
+    puts " "
     sleep(2)
   
   choices = ["GO OVER AND PET HER!", "BEND DOWN AND LET HER LICK YOUR FACE", "CROSS THE STREET."]
   response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
    sleep(2)
+   puts " "
   case response[0]
   when "GO OVER AND PET HER!"
     puts "YOU GOT TO PET A DOG BUT UNFORNATELY SHE WAS CARRYING THE VIRUS. LOSE 4 HEALTH POINTS."
@@ -201,7 +221,9 @@ def see_a_cute_dog
   when "CROSS THE STREET."
     puts "GOOD WORK! HER OWNER IS INFECTED WITH THE VIRUS. NO HEALTH POINTS DEDUCTED"
   end 
+  puts " "
   puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
+  sleep(3)
   self.death_status
 end 
 
@@ -268,8 +290,13 @@ def death_status
         @@prompt.error("┼┼┼┼┼┼┼┼▄▄▄██┼┼█▀█▀█┼┼██▄▄▄┼┼┼┼┼┼┼┼┼")
         @@prompt.error("┼┼┼┼┼┼┼┼▀▀██┼┼┼┼┼┼┼┼┼┼┼██▀▀┼┼┼┼┼┼┼┼┼")
         @@prompt.error("┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼")    
+        @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼")
+        puts " "
+        puts " "
+        @@prompt.select("EXIT GAME", ["EXIT"])
+        sleep(20)    
     end
+
 end
 
     # def start_story
