@@ -21,29 +21,29 @@ class Character < ActiveRecord::Base
         case response[0]
         
         when "PURELL" 
-           Item.find_or_create_by(name: "PURELL", hp: 2, usage: 3)
-           self.item_1_id = "PURELL"
+            item = Item.find_or_create_by(name: "PURELL", hp: 2, usage: 3)
+            self.item_1_id << item
         when "RUBBER GLOVES"
-            Item.find_or_create_by(name: "RUBBER GLOVES", usage: 1)
-            self.item_1_id = "RUBBER GLOVES"
+            item = Item.find_or_create_by(name: "RUBBER GLOVES", usage: 1)
+            self.item_1_id << item
         when "FACE MASK"
-            Item.find_or_create_by(name: "FACE MASK", hp: 5, usage: 6)
-            self.item_1_id = "FACE MASK"
+            item = Item.find_or_create_by(name: "FACE MASK", hp: 5, usage: 6)
+            self.item_1_id << item
         end 
        
         case response[1]
         
         when "PURELL" 
-            Item.find_or_create_by(name: "PURELL", hp: 2, usage: 3)
-            self.item_2_id = "PURELL"
+            item = Item.find_or_create_by(name: "PURELL", hp: 2, usage: 3)
+            self.item_2_id << item
             
          when "RUBBER GLOVES"
-             Item.find_or_create_by(name: "RUBBER GLOVES", usage: 1)
-             self.item_2_id = "RUBBER GLOVES"
+            item = Item.find_or_create_by(name: "RUBBER GLOVES", usage: 1)
+            self.item_2_id << item
 
          when "FACE MASK"
-             Item.find_or_create_by(name: "FACE MASK", hp: 5, usage: 6)
-             self.item_2_id = "FACE MASK"
+            item = Item.find_or_create_by(name: "FACE MASK", hp: 5, usage: 6)
+            self.item_2_id << item
          end 
       puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
     end 
