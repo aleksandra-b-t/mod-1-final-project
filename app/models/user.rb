@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
     def create_character
 
-        choices_1 = ["TEEN", "SENIOR"]
+        choices_1 = ["TEEN", "ADULT","SENIOR"]
         char = @@prompt.multi_select("SELECT YOUR CHARACTER", choices_1, min: 1, max: 1)
 
         choices_2 = ["HELP!", "GET A JOB!", "(COUGH, COUGH)"]
@@ -45,48 +45,58 @@ class User < ActiveRecord::Base
                 panic_cry: panicCry,
                 item_1_id: nil
             )
+        elsif char[0] == "ADULT"
+            Character.create(
+                user_id: self.id,
+                name: self.name,
+                char_type: char[0],
+                age: 35, 
+                hp: 7, 
+                panic_cry: panicCry,
+                item_1_id: nil
+            )
         end
     end
 
-    def start_story
-        system("clear")
-        puts ":::888888888888888888888888888888888888***8888888888888888888888::::88"
-        puts "::::8888888888888888888888P   ____.------.____   488888888888888:::888"
-        puts "::::88888888888888888P __.--||    _._         ||--.__ 4888888888:::888"
-        puts ":::::888888888888P _.-|        .-~ | ~-.             |-._ 488888:::888"
-        puts ":::::888888888P _-|            |   |   |                 |-_ 488::8888"
-        puts "::::::888888P ,'               |  _:_  |                    .-:~--.._8"
-        puts "8:::::88888 ,'            .  .-|~~ | ~~|-.                .~  |      |"
-        puts "88:::::88P /_.-~:.   .   :   |     |     |       .        |   |      |"
-        puts "888::::8P /|    | `.o    !   |     |     |        :       |   |      |"
-        puts " _..--~:-. |    |  |         |     |     |                |   |      |"
-        puts " |      |  ~.   |  |         |  __.:.__  |                |   |      |"
-        puts " |      |   |   |  |       .-|~~   |   ~~|-.              |   |      |"
-        puts " |      |   |  _|.--~:-.   |       |       |         .:~-.|   |      |"
-        puts " |      |   | |      |  ~. |       |   _.-:~--._   .' |   |   |      |"
-        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
-        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
-        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
-        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
-        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
-        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        puts "                                                                      "
-        puts "                                                                      "
-        puts "THE YEAR... 2020. THE PLACE... NEW YORK CITY."
-        puts "                                                                      "
-        sleep(2)
-        puts "IT'S DAY 187 SINCE THE COVID-19 PANDEMIC BEGAN."
-        puts "                                                                      "
-        sleep(2)
-        puts "YOU WAKE UP IN YOUR BED TO THE SOUND OF A RINGING TELEPHONE."
-        puts "                                                                      "
-        sleep(2)
-        puts "#{self.name.upcase}: HELLO?"
-        puts "                                                                      "
-        sleep(2)
-        puts "#{self.name.upcase}!!! IT'S [insert person]. I RAN OUT OF TOILET PAPER!"
-        puts "PLEASE BE A KIND SOUL AND BRING ME SOME?"
-        puts "                                                                      "
-        sleep(5)
-    end
+    # def start_story
+    #     system("clear")
+    #     puts ":::888888888888888888888888888888888888***8888888888888888888888::::88"
+    #     puts "::::8888888888888888888888P   ____.------.____   488888888888888:::888"
+    #     puts "::::88888888888888888P __.--||    _._         ||--.__ 4888888888:::888"
+    #     puts ":::::888888888888P _.-|        .-~ | ~-.             |-._ 488888:::888"
+    #     puts ":::::888888888P _-|            |   |   |                 |-_ 488::8888"
+    #     puts "::::::888888P ,'               |  _:_  |                    .-:~--.._8"
+    #     puts "8:::::88888 ,'            .  .-|~~ | ~~|-.                .~  |      |"
+    #     puts "88:::::88P /_.-~:.   .   :   |     |     |       .        |   |      |"
+    #     puts "888::::8P /|    | `.o    !   |     |     |        :       |   |      |"
+    #     puts " _..--~:-. |    |  |         |     |     |                |   |      |"
+    #     puts " |      |  ~.   |  |         |  __.:.__  |                |   |      |"
+    #     puts " |      |   |   |  |       .-|~~   |   ~~|-.              |   |      |"
+    #     puts " |      |   |  _|.--~:-.   |       |       |         .:~-.|   |      |"
+    #     puts " |      |   | |      |  ~. |       |   _.-:~--._   .' |   |   |      |"
+    #     puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+    #     puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+    #     puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+    #     puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+    #     puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+    #     puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    #     puts "                                                                      "
+    #     puts "                                                                      "
+    #     puts "THE YEAR... 2020. THE PLACE... NEW YORK CITY."
+    #     puts "                                                                      "
+    #     sleep(2)
+    #     puts "IT'S DAY 187 SINCE THE COVID-19 PANDEMIC BEGAN."
+    #     puts "                                                                      "
+    #     sleep(2)
+    #     puts "YOU WAKE UP IN YOUR BED TO THE SOUND OF A RINGING TELEPHONE."
+    #     puts "                                                                      "
+    #     sleep(2)
+    #     puts "#{self.name.upcase}: HELLO?"
+    #     puts "                                                                      "
+    #     sleep(2)
+    #     puts "#{self.name.upcase}!!! IT'S [insert person]. I RAN OUT OF TOILET PAPER!"
+    #     puts "PLEASE BE A KIND SOUL AND BRING ME SOME?"
+    #     puts "                                                                      "
+    #     sleep(5)
+    # end
 end

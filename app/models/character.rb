@@ -3,6 +3,118 @@ class Character < ActiveRecord::Base
     belongs_to :item
     @@prompt = TTY::Prompt.new
 
+    def start_story
+
+        if self.char_type == "TEEN"
+            importantperson = "YOUR GRANDMOTHER"
+        elsif self.char_type == "ADULT"
+            importantperson = "YOUR ELDERLY MOTHER"
+        elsif self.char_type = "SENIOR"
+            importantperson = "YOUR DISABLED ADULT CHILD"
+        end 
+
+        system("clear")
+        puts ":::888888888888888888888888888888888888***8888888888888888888888::::88"
+        puts "::::8888888888888888888888P   ____.------.____   488888888888888:::888"
+        puts "::::88888888888888888P __.--||    _._         ||--.__ 4888888888:::888"
+        puts ":::::888888888888P _.-|        .-~ | ~-.             |-._ 488888:::888"
+        puts ":::::888888888P _-|            |   |   |                 |-_ 488::8888"
+        puts "::::::888888P ,'               |  _:_  |                    .-:~--.._8"
+        puts "8:::::88888 ,'            .  .-|~~ | ~~|-.                .~  |      |"
+        puts "88:::::88P /_.-~:.   .   :   |     |     |       .        |   |      |"
+        puts "888::::8P /|    | `.o    !   |     |     |        :       |   |      |"
+        puts " _..--~:-. |    |  |         |     |     |                |   |      |"
+        puts " |      |  ~.   |  |         |  __.:.__  |                |   |      |"
+        puts " |      |   |   |  |       .-|~~   |   ~~|-.              |   |      |"
+        puts " |      |   |  _|.--~:-.   |       |       |         .:~-.|   |      |"
+        puts " |      |   | |      |  ~. |       |   _.-:~--._   .' |   |   |      |"
+        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
+        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        puts "                                                                      "
+        puts "                                                                      "
+        puts "THE YEAR... 2020. THE PLACE... NEW YORK CITY."
+        puts "                                                                      "
+        sleep(2)
+        puts "IT'S DAY 187 SINCE THE COVID-19 PANDEMIC BEGAN."
+        puts "                                                                      "
+        sleep(2)
+        puts "YOU WAKE UP IN YOUR BED TO THE SOUND OF A RINGING TELEPHONE."
+        puts "                                                                      "
+        sleep(2)
+        puts "#{self.name.upcase}: HELLO?"
+        puts "                                                                      "
+        sleep(2)
+        puts "#{self.name.upcase}!!! IT'S #{importantperson}. I RAN OUT OF TOILET PAPER!"
+        puts "PLEASE BE A KIND SOUL AND BRING ME SOME?"
+        puts "                                                                      "
+        sleep(5)
+
+end
+
+def see_a_friend 
+    puts "NAVIGATING YOUR WAY THROUGH THE EMPTY STREETS YOU SEE A FAMILIAR FACE"
+    puts "IT'S YOUR FRIEND GREG WAVING AT YOU FROM ACCROSS THE STREET"
+
+    choices = ["SPRAY LYSOL IN HIS DIRECTION AND RUN AWAY", "SMILE AND WAVE FROM A FAR", "HE LOOKS HEALTHY! CROSS THE STREET AND SAY HELLO."]
+    response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
+
+    case response[0]
+    when "SPRAY LYSOL IN HIS DIRECTION AND RUN AWAY" || "SMILE AND WAVE FROM A FAR"
+        puts "GOOD WORK! NO HEALTH POINTS DEDUCTED"
+    when "HE LOOKS HEALTHY! CROSS THE STREET AND SAY HELLO."
+        puts "HE IS HAPPY TO SEE YOU AN OFFERS YOU A CIGARETTE"
+
+        choices = ["GREAT! THIS TRIP HAS BEEN STRESSFUL I COULD REALLY USE ONE.", "NO THANK YOU, GREG!"]
+        response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
+
+        if response[0] == "GREAT! THIS TRIP HAS BEEN STRESSFUL I COULD REALLY USE ONE."
+            puts "YOU HAVE COME IN CONTACT WITH THE VIRUS. LOSE 5 HEALTH POINTS."
+            self.hp -= 5
+        else 
+            puts "YOU HAVE AVOIDED DIRECT INFECTION BUT MAY STILL BE CARRYING THE VIRUS. LOSE 3 HEALTH POINTS."
+            self.hp -= 3
+        end 
+
+    end 
+    puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
+    self.death_status
+end 
+
+def see_a_cute_dog 
+  puts "You see a cute dog on the street wagging her tail"
+  puts "She is on a leash at least six feet from her owner"
+  puts "|\_/|"                  
+  puts "| @ @   Woof!"
+  puts "|   <>              _"
+  puts "|  _/\------____ ((| |))"
+  puts "|               `--' |"  
+  puts "____|_       ___|   |___.'"
+  puts "/_/_____/____/_______|"   
+  
+  choices = ["GO OVER AND PET HER!", "BEND DOWN AND LET HER LICK YOUR FACE", "CROSS THE STREET."]
+  response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
+
+  case response[0]
+  when "GO OVER AND PET HER!"
+    puts "YOU GOT TO PET A DOG BUT UNFORNATELY SHE WAS CARRYING THE VIRUS. LOSE 4 HEALTH POINTS."
+    self.hp -= 4
+  when "BEND DOWN AND LET HER LICK YOUR FACE"
+    puts "YOU HAVE BEEN DIRECTLY INFECTED WITH THE VIRUS. LOSE 10 HEATLTH POINTS."
+    self.hp -= 10 
+  when "CROSS THE STREET."
+    puts "GOOD WORK! HER OWNER IS INFECTED WITH THE VIRUS. NO HEALTH POINTS DEDUCTED"
+  end 
+  puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
+  self.death_status
+end 
+
+
+
+
 def encounter_hobo
     puts "AS YOU CONTINUE DOWN THE BLOCK, YOU SEE A HOMELESS MAN COMING YOUR WAY."
     puts "                                                "
