@@ -8,7 +8,7 @@ class Character < ActiveRecord::Base
     @@prompt = TTY::Prompt.new
 
    def self.hp
-      Character.all.select do |char|
+      Character.all.find do |char|
         char.
    end 
 
