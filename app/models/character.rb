@@ -9,7 +9,7 @@ def encounter_hobo
     choices = ["USE PANIC CRY!", "SPRAY HIM WITH LYSOL AND RUN!"]
     response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
     puts "                                                "
-
+    sleep(1)
     if response[0] == "USE PANIC CRY!"
         if self.panic_cry == "[\"HELP!\"]"
             self.hp -= 2
@@ -27,6 +27,7 @@ def encounter_hobo
     puts "                                                "
     puts "CURRENT HEALTH: #{self.hp}" 
     puts "                                                "
+    sleep(2)
     self.death_status
 end    
 
