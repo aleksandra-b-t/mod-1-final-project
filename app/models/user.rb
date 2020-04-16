@@ -65,10 +65,10 @@ class User < ActiveRecord::Base
 
     def your_a_senior
         system("clear")
-        puts "YOURE SO TIRED"
+        puts "YOU'RE SO TIRED"
         puts " "
         sleep(2)
-        puts "WHY CANT #{self.important_person} GET TOILET PAPER THEMSELVES? THEYRE STILL YOUNG AND VITAL"
+        puts "WHY CAN'T THEY GET TOILET PAPER THEMSELVES?"
         puts " "
         sleep(2)
         choices = ["GO BACK HOME AND ORDER TOLIET PAPER ON AMAZON TO BE DELIVERED TO THIER PLACE", "KEEP GOING, YOU'LL NAP LATER"]
@@ -77,15 +77,15 @@ class User < ActiveRecord::Base
         case response[0]
 
         when "GO BACK HOME AND ORDER TOLIET PAPER ON AMAZON TO BE DELIVERED TO THIER PLACE"
-            puts "#{self.name} IS SO TIRED, THEY JUST NEED TO SIT DOWN"
+            puts "YOU'RE SO TIRED, YOU JUST NEED TO SIT DOWN"
             puts " "
-            puts "#{self.name} MAKES A QUICK LEFT INTO THE PARK."
+            puts "YOU MAKE A QUICK LEFT INTO THE PARK."
             sleep(2)
             puts " "
             puts "THE PARK IS PACKED, WHICH MEANS THE VIRUS IS EVERYTWHERE."
             puts " "
             sleep(2)
-            puts "#{self.name} PULLS OUT THIER PHONE TO ORDER THE TOILET PAPER, VIRUS GETS ALL OVER THE PHONE. LOSE 10 HEALTH POINTS."
+            puts "YOU PULL OUT YOUR PHONE TO ORDER THE TOILET PAPER, VIRUS GETS ALL OVER THE PHONE. LOSE 10 HEALTH POINTS."
             sleep(2)
             self.hp -= 10 
 
