@@ -7,6 +7,139 @@ class User < ActiveRecord::Base
     has_many :lysols 
     @@prompt = TTY::Prompt.new
 
+    def your_a_teen
+        system("clear")
+        puts "TOILET PAPER IS LAME. WHY DOES #{self.important_person} EVEN NEED IT?"
+        puts "  "
+        sleep(2)
+        puts "#{self.name} REACHES IN THIER POCKET TO PULL OUT A COUPLE 5 DOLLAR BILLS"
+        puts "  "
+        sleep(2)
+        puts "HOW MUCH DOES TOILET PAPER COST ANYWAY?"
+        puts " "
+        choices = ["STOP AT THE CANDY STORE AND BUY $15 WORTH OF CANDY", "CONTINUE TO THE STORE, YOU CAN GET CHIPS WHILE YOU'RE THERE", "STOP AT YOUR FAV SANDWHICH SHOP FOR PICKUP, YOUVE GOT JUST ENOUGH MONEY FOR A SANDWHICH!"]
+        response = @@prompt.multi_select("YOU'RE SUDDENLY FEELING SUPER HUNGRY. WHAT DO YOU DO?", choices, min: 1, max: 1)
+        case response[0]
+
+        when "STOP AT THE CANDY STORE AND BUY $15 WORTH OF CANDY"
+            puts "  "
+            puts "THE CANDY STORE IS CLOSED AND THE OTHER TEENS STANDING OUTSIDE ARE CARRYING THE VIRUS"
+            puts "  "
+            puts "ONE OF THEM SNEEZES ON YOU. LOSE 4 HEALTH POINTS"
+            puts " "
+            sleep(2)
+            self.hp -= 4 
+
+        when "CONTINUE TO THE STORE, YOU CAN GET CHIPS WHILE YOU'RE THERE"
+            puts " "
+            puts "NICE JOB! NO HEALTH POINTS DEDUCTED"
+            sleep(2)
+
+        when "STOP AT YOUR FAV SANDWHICH SHOP FOR PICKUP, YOUVE GOT JUST ENOUGH MONEY FOR A SANDWHICH!"
+            puts "  "
+            puts "YOUR SANDWHICH IS DELICIOUS BUT YOUVE FAILED TO GET #{self.important_person} TOILET PAPER"
+            sleep(2)
+            self.hp -= 15 
+
+        end 
+      self.death_status
+    end 
+
+
+    def your_a_senior
+        system("clear")
+        puts "YOURE SO TIRED"
+        puts " "
+        sleep(2)
+        puts "WHY CANT #{self.important_person} GET TOILET PAPER THEMSELVES? THEYRE STILL YOUNG AND VITAL"
+        puts " "
+        sleep(2)
+        choices = ["GO BACK HOME AND ORDER TOLIET PAPER ON AMAZON TO BE DELIVERED TO THIER PLACE", "KEEP GOING, YOU'LL NAP LATER"]
+        response = @@prompt.multi_select("WHAT DO YOU DO?", choices, min: 1, max: 1)
+        
+        case response[0]
+
+        when "GO BACK HOME AND ORDER TOLIET PAPER ON AMAZON TO BE DELIVERED TO THIER PLACE"
+            puts "#{self.name} IS SO TIRED, THEY JUST NEED TO SIT DOWN"
+            puts " "
+            puts "#{self.name} MAKES A QUICK LEFT INTO THE PARK."
+            sleep(2)
+            puts " "
+            puts "THE PARK IS PACKED, WHICH MEANS THE VIRUS IS EVERYTWHERE."
+            puts " "
+            sleep(2)
+            puts "#{self.name} PULLS OUT THIER PHONE TO ORDER THE TOILET PAPER, VIRUS GETS ALL OVER THE PHONE. LOSE 10 HEALTH POINTS."
+            sleep(2)
+            self.hp -= 10 
+
+        when "KEEP GOING, YOU'LL NAP LATER"
+            puts " "
+            puts "YOUR PERSISTANCE IS ADMIRABLE. NO HEALTH POINTS DEDUCTED"
+            sleep(2)
+        end 
+      self.death_status
+    end 
+
+    def your_an_adult 
+        system("clear")
+        puts "YOU GET ANOTHER CALL FROM #{self.important_person}"
+        sleep(2)
+        puts " "
+        puts "THEY JUST TESTED POSITIVE FOR THE VIRUS."
+        puts "  "
+        sleep(2)
+        choices = ["GET YOUR TOILET PAPER AND GO SEE THEM IMMIDATELY", "CALL A FRIEND TO SEE IF YOU CAN HIDEOUT AT THIER HOUSE UNTIL YOUR #{self.important_person} IS BETTER"]
+        response = @@prompt.multi_select('WHAT DO YOU DO?', choices, min: 1, max: 1)
+        puts "  "
+        sleep(2)
+        case response[0]
+        when "GET YOUR TOILET PAPER AND GO SEE THEM IMMIDATELY"
+            if self.face_mask != nil 
+                puts " "
+                puts "GOOD THING YOU HAVE A FACEMASK! NO HEATLH POINTS DEDUCTED"
+                sleep(2)
+            elsif self.rubber_glove != nil 
+                puts " "
+                puts "#{self.name} MAKES A FACEMASK OUT OF THEIR SCARF"
+                sleep(2)
+                puts " "
+                sleep(2)
+                puts "NO HEALTH POINTS DEDUCTED"
+            elsif self.purell != nil 
+                puts "  "
+                puts "UNFORTUNATELY #{self.name} ONLY GRABBED PURELL ON THIER WAY OUT"
+                sleep(2)
+                puts " "
+                puts "PURELL ALONE IS NOT ENOUGH TO STOP THE VIRUS"
+                sleep(2)
+                puts " "
+                puts "SIX HEALTH POINTS DEDUCTED"
+                self.hp -= 6
+            end 
+
+        when "CALL A FRIEND TO SEE IF YOU CAN HIDEOUT AT THIER HOUSE UNTIL YOUR #{self.important_person} IS BETTER"
+            puts "  "
+            puts "YOUR FRIEND TELLS YOU THERE IS NO WAY YOU CAN STAY WITH HER DURING QUARATINE"
+            sleep(2)
+            puts " "
+            puts "DEFEATED, YOU MAKE A QUICK LEFT INTO THE PARK."
+            sleep(2)
+            puts " "
+            puts "THE PARK IS PACKED, WHICH MEANS THE VIRUS IS EVERYWHERE"
+            sleep(2)
+            puts " "
+            puts "LOSE 8 HEALTH POINTS "
+            sleep(2)
+             self.hp -= 8 
+        end 
+        self.death_status
+    end 
+
+
+
+
+
+
     def item_problem_before_store 
         sleep(2)
         puts "#{self.name} APPROACHES THE STORE"
@@ -14,28 +147,30 @@ class User < ActiveRecord::Base
         puts "THERE IS A LINE AND A MAN IN A HAZMAT SUIT LETTING PEOPLE IN ONE AT A TIME"
         puts "  "
         if self.purell != nil 
-            sleep(2)
             puts "#{self.name} GETS IN LINE TRYING TO STAY 6 FEET AWAY FROM THE PERSON IN FRONT OF YOU"
             puts " "
             choices = ["APPLY MY PURELL!", "OFFER YOUR PURELL TO THE STRANGERS IN FRONT OF YOU"]
             response = @@prompt.multi_select('WHAT DO YOU DO?', choices, min: 1, max: 1)
+            sleep(2)
             case response[0]
             when "APPLY MY PURELL!"
                 apply_purell
+                sleep(2)
             when "OFFER YOUR PURELL TO THE STRANGERS IN FRONT OF YOU"
                 puts " "
                 puts "A STRANGER THANKS YOU BY TOUCHING YOUR ARM AND GIVES YOU THE VIRUS"
                 puts "  "
                 puts "FIVE HEATLH POINTS DEDUCTED"
                 self.hp -= 4 
+                sleep(2)
             end 
         elsif self.rubber_glove != nil 
-            sleep(2)
             puts "  "
             puts "THE PERSON IN FRONT OF YOU IS COUGHING"
             puts " "
             choices = ["RUN THE OTHER WAY", "TURN YOUR SCARF INTO A MASK"]
             response = @@prompt.multi_select('WHAT DO YOU DO?', choices, min: 1, max: 1)
+            sleep(2)
             case response[0]
             when "RUN THE OTHER WAY"
                 puts " "
@@ -73,7 +208,7 @@ class User < ActiveRecord::Base
             
         end 
         self.buying_toilet_paper 
-        death_status
+        self.death_status
     end 
 
 
@@ -128,7 +263,7 @@ class User < ActiveRecord::Base
             end 
             
         end 
-        death_status
+        self.death_status
     end 
 
     def self.graveyard 
@@ -242,21 +377,21 @@ puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"
         panicCry = @@prompt.multi_select("SELECT YOUR PANIC CRY:", choices_2, min: 1, max: 1)
    
         if char[0] == "TEEN"
-            person = User.create( name: username.upcase, hp: 10, panic_cry: panicCry[0])
+            person = User.create( name: username.upcase, hp: 10, panic_cry: panicCry[0], character_type: "TEEN")
             #person.start_story
             #person.see_a_friend
             #person.buying_toilet_paper
 
 
         elsif char[0] == "SENIOR"
-            person = User.create( name: username.upcase, hp: 5, panic_cry: panicCry[0])
+            person = User.create( name: username.upcase, hp: 5, panic_cry: panicCry[0], character_type: "SENIOR")
            # person.start_story
             #person.see_a_cute_dog
             #person.buying_toilet_paper
             
 
         elsif char[0] == "ADULT"
-            person = User.create(name: username.upcase, hp: 7, panic_cry: panicCry[0])
+            person = User.create(name: username.upcase, hp: 7, panic_cry: panicCry[0], character_type: "ADULT")
            # person.start_story
             #person.encounter_hobo
             #person.buying_toilet_paper
@@ -499,7 +634,6 @@ def see_a_cute_dog
   sleep(3)
   self.death_status
 end 
-
 
 
 
