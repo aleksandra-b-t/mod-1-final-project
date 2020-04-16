@@ -36,8 +36,10 @@ puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"
     system("clear")
     puts "FINALLY #{self.name.upcase} YOU HAVE MADE IT TO THE DELI"
     puts " "
+    sleep(2)
     puts "TO YOUR DISMAY THE STORE IS ALMOST OUT OF TOILET PAPER"
     puts " "
+    sleep(2)
     toilet_choices
     end 
 
@@ -46,18 +48,24 @@ puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"
      paper = @@prompt.multi_select("WHICH DO YOU PICK:", choices, min: 1, max: 1)
     case paper[0]
     when "SINGLE PLY"
+        puts " "
         puts "YOUR #{self.important_person} IS GOING TO LOVE IT!"
         puts " "
+        sleep(2)
         puts "CONGRADUATIONS YOUR GOT YOUR TOILET PAPER AND WON THE GAME"
         #holding up toilet paper art?
     when "FANCY CHARMIN"
+        puts " "
         puts "YOU PICK UP THE TOILET PAPER BUT THE BODEGA CAT HAS ALREADY GOTTEN TO IT"
         puts " "
+        sleep(2)
         puts "YOU SNEEZE AND TOUCH YOUR FACE"
         puts " "
+        sleep(2)
         puts "YOU HAVE BEEN INFECTED"
         self.hp -= 40
     when "BODEGA BRAND RECYLEABLE"
+        puts " "
       puts "ODD CHOICE! CONGRADULATIONS YOU HAVE SUCCESSFUL GOTTEN #{self.important_person} THEIR TOILET PAPER AND WON THE GAME"
       #holding up toilet paper art?
      end 
@@ -67,6 +75,22 @@ puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"
 
     def self.welcome
         system("clear")
+        @@prompt.error("  /000000   /000000  /00    /00 /000000 /0000000         /000000  /00   /00 /00000000  /000000  /00000000")
+        @@prompt.error(" /00__  00 /00__  00| 00   | 00|_  00_/| 00__  00       /00__  00| 00  | 00| 00_____/ /00__  00|__  00__/")
+        @@prompt.error("| 00  |__/| 00  | 00| 00   | 00  | 00  | 00  | 00      | 00  | 00| 00  | 00| 00      | 00  |__/   | 00   ")
+        puts " "
+        @@prompt.error("| 00      | 00  | 00|  00 / 00/  | 00  | 00  | 00      | 00  | 00| 00  | 00| 00000   |  000000    | 00   ")
+        puts " "
+        @@prompt.error("| 00      | 00  | 00 |  00 00/   | 00  | 00  | 00      | 00  | 00| 00  | 00| 00__/    |____  00   | 00   ")
+        puts " "
+        @@prompt.error("| 00    00| 00  | 00  |  000/    | 00  | 00  | 00      | 00/00 00| 00  | 00| 00       /00  | 00   | 00   ")
+        puts " "
+        @@prompt.error("|  000000/|  000000/   |  0/    /000000| 0000000/      |  000000/|  000000/| 00000000|  000000/   | 00   ")
+        puts " "
+        @@prompt.error(" |______/  |______/     |_/    |______/|_______/        |____ 000 |______/ |________/ |______/    |__/   ")
+        puts " "
+        @@prompt.error("                                                            |__/                                         ")
+        puts " "
         username = @@prompt.ask('ENTER YOUR PLAYER NAME:') 
         puts "WELCOME #{username.upcase}!"
         puts ' '
@@ -148,7 +172,9 @@ puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"
         #     self.face_mask = item
         # end 
         sleep(2)
-      puts "#{self.name} GRABS THE ITEMS LEAVES!" 
+      puts " "
+      puts "#{self.name} GRABS THE ITEMS LEAVES!"
+      sleep(1)
     end 
 
     def start_story
@@ -162,26 +188,26 @@ puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"
         end 
 
         system("clear")
-        puts ":::888888888888888888888888888888888888***8888888888888888888888::::88"
-        puts "::::8888888888888888888888P   ____.------.____   488888888888888:::888"
-        puts "::::88888888888888888P __.--||    _._         ||--.__ 4888888888:::888"
-        puts ":::::888888888888P _.-|        .-~ | ~-.             |-._ 488888:::888"
-        puts ":::::888888888P _-|            |   |   |                 |-_ 488::8888"
-        puts "::::::888888P ,'               |  _:_  |                    .-:~--.._8"
-        puts "8:::::88888 ,'            .  .-|~~ | ~~|-.                .~  |      |"
-        puts "88:::::88P /_.-~:.   .   :   |     |     |       .        |   |      |"
-        puts "888::::8P /|    | `.o    !   |     |     |        :       |   |      |"
-        puts " _..--~:-. |    |  |         |     |     |                |   |      |"
-        puts " |      |  ~.   |  |         |  __.:.__  |                |   |      |"
-        puts " |      |   |   |  |       .-|~~   |   ~~|-.              |   |      |"
-        puts " |      |   |  _|.--~:-.   |       |       |         .:~-.|   |      |"
-        puts " |      |   | |      |  ~. |       |   _.-:~--._   .' |   |   |      |"
-        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
-        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
-        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
-        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
-        puts " |      |   | |      |   | |       |  |   |     |  |  |   |   |      |"
-        puts "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        @@prompt.warn(":::888888888888888888888888888888888888***8888888888888888888888::::88")
+        @@prompt.warn("::::8888888888888888888888P   ____.------.____   488888888888888:::888")
+        @@prompt.warn("::::88888888888888888P __.--||    _._         ||--.__ 4888888888:::888")
+        @@prompt.warn(":::::888888888888P _.-|        .-~ | ~-.             |-._ 488888:::888")
+        @@prompt.warn(":::::888888888P _-|            |   |   |                 |-_ 488::8888")
+        @@prompt.warn("::::::888888P ,'               |  _:_  |                    .-:~--.._8")
+        @@prompt.warn("8:::::88888 ,'            .  .-|~~ | ~~|-.                .~  |      |")
+        @@prompt.warn("88:::::88P /_.-~:.   .   :   |     |     |       .        |   |      |")
+        @@prompt.warn("888::::8P /|    | `.o    !   |     |     |        :       |   |      |")
+        @@prompt.warn(" _..--~:-. |    |  |         |     |     |                |   |      |")
+        @@prompt.warn(" |      |  ~.   |  |         |  __.:.__  |                |   |      |")
+        @@prompt.warn(" |      |   |   |  |       .-|~~   |   ~~|-.              |   |      |")
+        @@prompt.warn(" |      |   |  _|.--~:-.   |       |       |         .:~-.|   |      |")
+        @@prompt.warn(" |      |   | |      |  ~. |       |   _.-:~--._   .' |   |   |      |")
+        @@prompt.warn(" |      |   | |      |   | |       |  |   |     |  |  |   |   |      |")
+        @@prompt.warn(" |      |   | |      |   | |       |  |   |     |  |  |   |   |      |")
+        @@prompt.warn(" |      |   | |      |   | |       |  |   |     |  |  |   |   |      |")
+        @@prompt.warn(" |      |   | |      |   | |       |  |   |     |  |  |   |   |      |")
+        @@prompt.warn(" |      |   | |      |   | |       |  |   |     |  |  |   |   |      |")
+        @@prompt.warn("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
         puts "                                                                      "
         puts "                                                                      "
         puts "THE YEAR... 2020. THE PLACE... NEW YORK CITY."
@@ -206,6 +232,43 @@ end
 
 def see_a_friend 
     system("clear")
+    @@prompt.warn("                      ____..     ")
+    puts " "
+    @@prompt.warn("             .--=-====.__    .    ")
+    puts " "
+    @@prompt.warn("            |            `    |    ")
+    puts " "
+    @@prompt.warn("  (         `._....------.._.:     ")
+    puts " "
+    @@prompt.warn("   )         .()''        ``()    ")
+    puts " "
+    @@prompt.warn("  '          () .=='  `===  `   ")
+    puts " "
+    @@prompt.warn("   . )       (  (o     g)   )       ")
+    puts " "
+    @@prompt.warn("   (          |.   /      . (      ")
+    puts " "
+    @@prompt.warn("   $$         (.  (_'.   , )|`     ")
+    puts " "
+    @@prompt.warn("   ||         |)`-....--'/  ' l    ")
+    puts " "
+    @@prompt.warn("  /||.         () | | | /  /   l.  ")
+    puts " "
+    @@prompt.warn(" //||(          l`-===-'  '     lo. ")
+    puts " "
+    @@prompt.warn(".//7' |)         `. --   l      OObaaaad888b. ")
+    puts " "
+    @@prompt.warn("(<<. / |     .a888b`.__.'d      OO888888888888a. ")
+    puts " "
+    @@prompt.warn(" \  Y' |    .8888888aaaa88POOOOOO888888888888888.  ")
+    puts " "
+    @@prompt.warn("   |   |  .d88888P88888888888888888888888b8888888.  ")
+    puts " "
+    @@prompt.warn("   b.--d .d88888P8888888888888888a:f888888|888888b  ")
+    puts " "
+    @@prompt.warn("   88888b 888888|8888888888888888888888888\8888888  ")
+    puts " "
+    puts " "
     puts "NAVIGATING YOUR WAY THROUGH THE EMPTY STREETS YOU SEE A FAMILIAR FACE"
     sleep(2)
     puts " "
@@ -227,15 +290,17 @@ def see_a_friend
         choices = ["GREAT! THIS TRIP HAS BEEN STRESSFUL I COULD REALLY USE ONE.", "NO THANK YOU, GREG!"]
         response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
         puts " "
+        sleep(1)
         if response[0] == "GREAT! THIS TRIP HAS BEEN STRESSFUL I COULD REALLY USE ONE."
             puts "YOU HAVE COME IN CONTACT WITH THE VIRUS. LOSE 5 HEALTH POINTS."
             self.hp -= 5
         else 
-            puts "YOU HAVE AVOIDED DIRECT INFECTION BUT MAY STILL BE CARRYING THE VIRUS. LOSE 3 HEALTH POINTS."
+            puts "YOU HAVE AVOIDED DIRECT INFECTION BUT HE MAY STILL BE CARRYING THE VIRUS. LOSE 3 HEALTH POINTS."
             self.hp -= 3
         end 
 
     end 
+    sleep(1)
     puts " "
     puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
     sleep(3)
@@ -245,19 +310,31 @@ end
 def see_a_cute_dog 
     system("clear")
     sleep(2)
-    @@prompt.warn ("You see a cute dog on the street wagging her tail").upcase
+    @@prompt.warn ("          ____")
+    @@prompt.warn ("       ,--,  `---._")
+    @@prompt.warn ("_______(0} `, , ` , )")
+    @@prompt.warn ("V           ; ` , ` (                            ,•~~~~~~`,")
+    @@prompt.warn ("`.____,- •  (,  `  , )                          :`,-•**`. *;")
+    @@prompt.warn ("  `-------._);  ,  ` `,                         (;:      )``:")
+    @@prompt.warn ("         )  ) ; ` ,,  :                          ``      : •;")
+    @@prompt.warn ("        (  (`;:  ; ` ;:                                  ;;;,")
+    @@prompt.warn ("        (:  )``;:;;)`•`•`--.    _____     ____       _,-•;;`")
+    @@prompt.warn ("        :`  )`;)`)`•   :    ^~~~     ~~~~~    ~~~`--^,.;;;^")
+    @@prompt.warn ("        `--;~~~~~      `  ,  ^, ^^^,  ^  ^   ^` ^,, ^ ;``")
+    @@prompt.warn ("          (; ; ;      `                   ,`       ` :")
+    @@prompt.warn ("           (; /            ;   ;          ` ;     ; :")
+    @@prompt.warn ("           ;(_; ;  :   ; ; `; ;` ; ; ,,,^^^;}     `;")
+    @@prompt.warn ("           : `; `; `  :  `  `,,;,••••   );;`);     ;")
+    @@prompt.warn ("           |, `;; ,``                  `)`; `(; `  `;")
+    @@prompt.warn ("           ;  ;;  ``:                   `).:` (;,   `.")
+    @@prompt.warn ("        ,-•   ;`;;:;`                   ;;•`;;  `)   )")
+    @@prompt.warn ("         ~~~,-`;`;,)                    ~~~~~  ,-•   ;")
+    @@prompt.warn ("            ^^^^^^                             `^^^^^^")  
+    puts " "
+    puts "YOU SEE A CUTE DOG ON THE STREET WAGGING HER TAIL"
     puts " "
     sleep(2)
-    @@prompt.warn ("She is on a leash at least six feet from her owner").upcase
-    puts " "
-    sleep(2)
-    @@prompt.warn ("|\_/|")                  
-    @@prompt.warn ("| @ @   Woof!")
-    @@prompt.warn ("|   <>              _")
-    @@prompt.warn ("|  _/\------____ ((| |))")
-    @@prompt.warn ("|               `--' |")  
-    @@prompt.warn ("____|_       ___|   |___.'")
-    @@prompt.warn  ("/_/_____/____/_______|")  
+    puts "SHE IS ON A LEASH AT LEAST SIX FEET FROM HER OWNER"
     puts " "
     sleep(2)
   
@@ -275,6 +352,7 @@ def see_a_cute_dog
   when "CROSS THE STREET."
     puts "GOOD WORK! HER OWNER IS INFECTED WITH THE VIRUS. NO HEALTH POINTS DEDUCTED"
   end 
+  sleep(1)
   puts " "
   puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
   sleep(3)
@@ -286,8 +364,26 @@ end
 
 def encounter_hobo
     system("clear")
+    @@prompt.warn("                 ^^^^^^^^")
+    @@prompt.warn("                (         )")
+    @@prompt.warn("               ((         ))")
+    @@prompt.warn("               (___)   (___)")
+    @@prompt.warn("               ( 0       0 )            ,-,")
+    @@prompt.warn("   ,.          (|   * *   |)        ,-./ /")
+    @@prompt.warn(" _ | |         (           )        | `- `--.")
+    @@prompt.warn("( `* (_/|__     |  =====  /       ,-*     ,-)")
+    @@prompt.warn(";         )    ,|`.  - , |.      `-.   ) |")
+    @@prompt.warn("| (    ,-*   _/ `-.`-- ,-  |---.   /      ;")
+    @@prompt.warn("|     |   ,-*  |  /---- |  |   |--/       |")
+    @@prompt.warn("|     |_,|    /     |     /|   |          |")
+    @@prompt.warn("|     `  |   |      |       |  /        ,*")
+    @@prompt.warn("|         |  |      |       | /      _,*")
+    @@prompt.warn(":          | ,      |       `/------*")
+    @@prompt.warn("`-.___,---*)        |       `.")
+    puts " "
     puts "AS YOU CONTINUE DOWN THE BLOCK, YOU SEE A HOMELESS MAN COMING YOUR WAY."
-    puts "                                                "
+    puts "                                               "
+    sleep(1) 
     choices = ["USE PANIC CRY!", "SPRAY HIM WITH LYSOL AND RUN!"]
     response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
     puts "                                                "
@@ -357,7 +453,7 @@ def death_status
         puts " "
         puts " "
         @@prompt.select("EXIT GAME", ["EXIT"])
-        sleep(20)    
+        sleep(30)    
     end
 
 end
