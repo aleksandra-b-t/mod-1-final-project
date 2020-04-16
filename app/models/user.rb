@@ -78,21 +78,21 @@ puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"
    
         if char[0] == "TEEN"
             person = User.create( name: username.upcase, hp: 10, panic_cry: panicCry[0])
-            person.start_story
+            #person.start_story
             #person.see_a_friend
             #person.buying_toilet_paper
 
 
         elsif char[0] == "SENIOR"
             person = User.create( name: username.upcase, hp: 5, panic_cry: panicCry[0])
-            person.start_story
+           # person.start_story
             #person.see_a_cute_dog
             #person.buying_toilet_paper
             
 
         elsif char[0] == "ADULT"
             person = User.create(name: username.upcase, hp: 7, panic_cry: panicCry[0])
-            person.start_story
+           # person.start_story
             #person.encounter_hobo
             #person.buying_toilet_paper
             #the game seems short if we limit one encounter per character 
