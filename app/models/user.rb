@@ -34,6 +34,23 @@ puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"
 
     def buying_toilet_paper 
     system("clear")
+    @@prompt.warn(".             .        .     .     |--|--|--|--|--|--|")
+    @@prompt.warn(".                   _______|__|__|__|__|__|_ |  |===||")
+    @@prompt.warn("__ *            .   )______________________________|-|")
+    @@prompt.warn("__|  .      .   .  ))______________________________| |")
+    @@prompt.warn("__|   )||      _|_|))       ooooooooooooooooooooo  |-|")
+    @@prompt.warn("__|  |)|||__   ||||),-------8                   8 -| |")
+    @@prompt.warn("__|._|)|||||.| |[=|),-------8  [ B O D E G A ]  8 -|-|")
+    @@prompt.warn("__|[+|-|-|||||||[=|---------8                   8 -| |")
+    @@prompt.warn("_-----.|)| )):|_[=||`-------8                   8 -|-|")
+    @@prompt.warn(")|  )||))8) :  8_||`------  8ooooooooooooooooooo8 -| |")
+    @@prompt.warn(")=| ))||) |  .  | |||_____________  ____  _________|-|")
+    @@prompt.warn("==|))||  )   .   | ||_____________ |X|  | _________| |")
+    @@prompt.warn("==| ||  )         | |_____________ |X| || _________| |")
+    @@prompt.warn("==| |~ )     .     |")
+    @@prompt.warn("==|)  )             |________________________________")
+    puts " "
+    puts " "
     puts "FINALLY #{self.name.upcase} YOU HAVE MADE IT TO THE DELI"
     puts " "
     sleep(2)
