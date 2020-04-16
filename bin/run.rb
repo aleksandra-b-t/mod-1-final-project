@@ -5,9 +5,10 @@ ActiveRecord::Base.logger = nil
 
 person = User.welcome
 person.start_story 
+person.item_problem 
 person.see_a_friend 
 person.see_a_cute_dog
 person.encounter_hobo
-person.buying_toilet_paper 
+person.item_problem_before_store
 #binding.pry
 # puts "HELLO WORLD"

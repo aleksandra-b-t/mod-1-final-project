@@ -7,6 +7,130 @@ class User < ActiveRecord::Base
     has_many :lysols 
     @@prompt = TTY::Prompt.new
 
+    def item_problem_before_store 
+        sleep(2)
+        puts "#{self.name} APPROACHES THE STORE"
+        puts "  "
+        puts "THERE IS A LINE AND A MAN IN A HAZMAT SUIT LETTING PEOPLE IN ONE AT A TIME"
+        puts "  "
+        if self.purell != nil 
+            sleep(2)
+            puts "#{self.name} GETS IN LINE TRYING TO STAY 6 FEET AWAY FROM THE PERSON IN FRONT OF YOU"
+            puts " "
+            choices = ["APPLY MY PURELL!", "OFFER YOUR PURELL TO THE STRANGERS IN FRONT OF YOU"]
+            response = @@prompt.multi_select('WHAT DO YOU DO?', choices, min: 1, max: 1)
+            case response[0]
+            when "APPLY MY PURELL!"
+                apply_purell
+            when "OFFER YOUR PURELL TO THE STRANGERS IN FRONT OF YOU"
+                puts " "
+                puts "A STRANGER THANKS YOU BY TOUCHING YOUR ARM AND GIVES YOU THE VIRUS"
+                puts "  "
+                puts "FIVE HEATLH POINTS DEDUCTED"
+                self.hp -= 4 
+            end 
+        elsif self.rubber_glove != nil 
+            sleep(2)
+            puts "  "
+            puts "THE PERSON IN FRONT OF YOU IS COUGHING"
+            puts " "
+            choices = ["RUN THE OTHER WAY", "TURN YOUR SCARF INTO A MASK"]
+            response = @@prompt.multi_select('WHAT DO YOU DO?', choices, min: 1, max: 1)
+            case response[0]
+            when "RUN THE OTHER WAY"
+                puts " "
+                puts "GOOD THINKING! YOU HAVE AVOIDED THE VIRUS BUT FAILED TO BRING YOUR #{self.important_person} TOILET PAPER."
+                sleep(2)
+                self.hp -= 70 
+
+            when "TURN YOUR SCARF INTO A MASK"
+                puts " "
+                puts "GREAT CHOICE! NO HEALTH POINTS DEDUCTED"
+                sleep(2)
+            end 
+
+        elsif self.face_mask != nil
+            sleep(2)
+            puts "GOOD THING YOUR FACE IS PROTECHED"
+            puts " "
+            choices = ["POCKETS!!!", "WHO CARES? I HAVE A FACEMASK"]
+            response = @@prompt.multi_select('WHAT DO YOU DO? WITH YOUR HANDS', choices, min: 1, max: 1)
+            puts " "
+            case response[0]
+            when "POCKETS!!!"
+                puts " "
+                puts "GOOD THINKING. NO HEALTH POINTS DEDCUTED"
+                puts " "
+                sleep(2)
+            when "WHO CARES? I HAVE A FACEMASK"
+                puts " "
+                puts "THE VIRUS GETS ON YOUR HANDS AND YOU SPREAD IT TO #{self.important_person}"
+                puts "  "
+                puts "LOSE 4 HEALTH POINTS "
+                sleep(2)
+                self.hp -= 4 
+            end 
+            
+        end 
+        self.buying_toilet_paper 
+        death_status
+    end 
+
+
+
+
+
+
+    def item_problem 
+        sleep(2)
+        if self.purell != nil 
+            puts "#{self.name.upcase} PUTS ON THIER SHOES AND WIPES DOWN THE DOOR HANDLE ON THEIR WAY OUT"
+            puts " "
+            choices = ["APPLY MY PURELL!", "NO NEED FOR PURELL, I JUST WIPED DOWN THE DOOR HANDLE"]
+            response = @@prompt.multi_select('WHAT IS YOUR NEXT MOVE?', choices, min: 1, max: 1)
+            case response[0]
+            when "APPLY MY PURELL!"
+                apply_purell
+            when "NO NEED FOR PURELL, I JUST WIPED DOWN THE DOOR HANDLE"
+                puts " "
+                puts "YOURE CARING THE VIRUS AND WILL NOW INFECT 3 PEOPLE"
+                puts "  "
+                puts "FIVE HEATLH POINTS DEDUCTED"
+                sleep(2)
+                self.hp -= 4 
+            end 
+        elsif self.rubber_glove != nil 
+            puts "  "
+            puts "DONT FORGET TO TAKE OFF YOUR GLOVES BEFORE SEEING #{self.important_person}"
+            puts " "
+            puts "NO HEATLH POINTS DEDUCTED"
+            sleep(2)
+
+        elsif self.face_mask != nil
+            puts "YOUR FACEMASK IS NOT COMFORTABLE"
+            puts " "
+            choices = ["NOTHING, IM NOT WEARING GLOVES", "ADJUST IT! IM GOING TO NEED TO WEAR THIS THE WHOLE TRIP!"]
+            response = @@prompt.multi_select('WHAT DO YOU DO?', choices, min: 1, max: 1)
+            puts " "
+            case response[0]
+            when "NOTHING, IM NOT WEARING GLOVES"
+                puts " "
+                puts "GOOD THINKING. NO HEALTH POINTS DEDCUTED"
+                puts " "
+                sleep(2)
+            when "ADJUST IT! IM GOING TO NEED TO WEAR THIS THE WHOLE TRIP!"
+                puts " "
+                puts "IF THE VIRUS WAS ON YOUR HANDS YOUR FACEMASK HAS BEEN COMPRIMISED AND RENDERED USELESS"
+                puts "  "
+                puts "LOSE 4 HEALTH POINTS "
+                sleep(2)
+                self.hp -= 4 
+            end 
+            
+        end 
+        death_status
+    end 
+
     def self.graveyard 
        person = self.all.last.name 
     puts "        _  /)"
@@ -143,13 +267,13 @@ puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"
 
 
     def apply_purell
-        system("clear")
         sleep(2)
         if self.purell 
             puts "YOU USED YOUR PURELL. ADD 2 HEALTH POINTS"
             self.hp += 2
         end 
         sleep(2)
+        puts "  "
         puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
     end 
 
