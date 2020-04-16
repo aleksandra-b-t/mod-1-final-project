@@ -29,10 +29,10 @@ class User < ActiveRecord::Base
         puts "TOILET PAPER IS LAME. WHY DOES #{self.important_person} EVEN NEED IT?"
         puts "  "
         sleep(2)
-        puts "#{self.name} REACHES IN THIER POCKET TO PULL OUT A COUPLE 5 DOLLAR BILLS"
+        puts "YOU REACH INTO YOUR POCKET AND PULL OUT A COUPLE 5 DOLLAR BILLS"
         puts "  "
         sleep(2)
-        puts "HOW MUCH DOES TOILET PAPER COST ANYWAY?"
+        puts "HOW MUCH DOES TOILET PAPER COST?"
         puts " "
         choices = ["STOP AT THE CANDY STORE AND BUY $15 WORTH OF CANDY", "CONTINUE TO THE STORE, YOU CAN GET CHIPS WHILE YOU'RE THERE", "STOP AT YOUR FAV SANDWHICH SHOP FOR PICKUP, YOUVE GOT JUST ENOUGH MONEY FOR A SANDWHICH!"]
         response = @@prompt.multi_select("YOU'RE SUDDENLY FEELING SUPER HUNGRY. WHAT DO YOU DO?", choices, min: 1, max: 1)
@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
         when "STOP AT THE CANDY STORE AND BUY $15 WORTH OF CANDY"
             puts "  "
             puts "THE CANDY STORE IS CLOSED AND THE OTHER TEENS STANDING OUTSIDE ARE CARRYING THE VIRUS"
+            sleep(2)
             puts "  "
             puts "ONE OF THEM SNEEZES ON YOU. LOSE 4 HEALTH POINTS"
             puts " "
@@ -59,6 +60,8 @@ class User < ActiveRecord::Base
             self.hp -= 15 
 
         end 
+        puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
+        sleep(2)
       self.death_status
     end 
 
@@ -94,6 +97,8 @@ class User < ActiveRecord::Base
             puts "YOUR PERSISTANCE IS ADMIRABLE. NO HEALTH POINTS DEDUCTED"
             sleep(2)
         end 
+        puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
+        sleep(2)
       self.death_status
     end 
 
@@ -149,6 +154,8 @@ class User < ActiveRecord::Base
             sleep(2)
              self.hp -= 8 
         end 
+        puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
+        sleep(2)
         self.death_status
     end 
 
@@ -544,11 +551,11 @@ class User < ActiveRecord::Base
     end 
 
     def rubber_glove_prob
-        puts "  "
         puts "DONT FORGET TO TAKE OFF YOUR GLOVES BEFORE SEEING #{self.important_person}"
         puts " "
         sleep(2)
         puts "NO HEATLH POINTS DEDUCTED"
+        sleep(2)
     end 
 
 
