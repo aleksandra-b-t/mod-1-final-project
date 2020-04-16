@@ -7,6 +7,33 @@ class Character < ActiveRecord::Base
     belongs_to :facemask
     @@prompt = TTY::Prompt.new
 
+
+
+
+    # def self.graveyard 
+    #     person = self.all.last.char_type 
+    #     puts "        _  /)"
+    #     puts "        mo / )"
+    #     puts "        |/)\)"
+    #     puts "         /\_"
+    #     puts "         \__|="
+    #     puts "        (    )"
+    #     puts "        __)(__"
+    #     puts "  _____/      \\_____"
+    #     puts " |  _     ___   _   ||"
+    #     puts " | | \     |   | \  ||"
+    #     puts " | |  |    |   |  | ||"
+    #     puts " | |_/     |   |_/  ||"
+    #     puts " | | \     |   |    ||"
+    #     puts " | |  \    |   |    ||"
+    #     puts " | |   \. _|_. | .  ||"
+    #     puts " |                  ||"
+    #     puts " |  #{person}  ||"
+    #     puts " |                  ||"
+    #     puts "*       | *   **    * **   |**      **"
+    #     puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"  
+    #     end 
+
    # def self.hp
    #    Character.all.find do |char|
    #      char.

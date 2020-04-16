@@ -7,6 +7,23 @@ class User < ActiveRecord::Base
     has_many :lysols 
     @@prompt = TTY::Prompt.new
 
+    def age_prob 
+        case self.character_type
+        when "TEEN"
+           your_a_teen
+           see_a_friend
+           encounter_hobo
+        when "SENIOR"
+            your_a_senior
+            see_a_cute_dog
+            encounter_hobo
+        when "ADULT"
+            your_an_adult
+            see_a_friend
+            encounter_hobo
+        end 
+    end 
+
     def your_a_teen
         system("clear")
         puts "TOILET PAPER IS LAME. WHY DOES #{self.important_person} EVEN NEED IT?"
@@ -379,6 +396,7 @@ class User < ActiveRecord::Base
         panicCry = @@prompt.multi_select("SELECT YOUR PANIC CRY:", choices_2, min: 1, max: 1)
    
         if char[0] == "TEEN"
+            #do we create a new instance of character? 
             person = User.create( name: username.upcase, hp: 10, panic_cry: panicCry[0], character_type: "TEEN")
             #person.start_story
             #person.see_a_friend
@@ -386,6 +404,7 @@ class User < ActiveRecord::Base
 
 
         elsif char[0] == "SENIOR"
+            #create a new instance of character?
             person = User.create( name: username.upcase, hp: 5, panic_cry: panicCry[0], character_type: "SENIOR")
            # person.start_story
             #person.see_a_cute_dog
@@ -393,6 +412,7 @@ class User < ActiveRecord::Base
             
 
         elsif char[0] == "ADULT"
+            #create a new instance of character?
             person = User.create(name: username.upcase, hp: 7, panic_cry: panicCry[0], character_type: "ADULT")
            # person.start_story
             #person.encounter_hobo
@@ -500,57 +520,71 @@ class User < ActiveRecord::Base
     end 
 
 
+    def purrell_prob
+        puts "#{self.name.upcase} PUTS ON THIER SHOES AND WIPES DOWN THE DOOR HANDLE ON THEIR WAY OUT"
+        puts " "
+        sleep(2)
+        choices = ["APPLY MY PURELL!", "NO NEED FOR PURELL, I JUST WIPED DOWN THE DOOR HANDLE"]
+        response = @@prompt.multi_select('WHAT IS YOUR NEXT MOVE?', choices, min: 1, max: 1)
+        puts " "
+        sleep(2)
+        case response[0]
+        when "APPLY MY PURELL!"
+            apply_purell
+        when "NO NEED FOR PURELL, I JUST WIPED DOWN THE DOOR HANDLE"
+            puts " "
+            puts "THOUGH THAT MAY BE TRUE, YOU STILL RISK CROSS CONTAMINATION"
+            puts "  "
+            sleep(2)
+            puts "FOUR HEATLH POINTS DEDUCTED"
+            puts " "
+            sleep(2)
+            self.hp -= 4 
+        end 
+    end 
+
+    def rubber_glove_prob
+        puts "  "
+        puts "DONT FORGET TO TAKE OFF YOUR GLOVES BEFORE SEEING #{self.important_person}"
+        puts " "
+        sleep(2)
+        puts "NO HEATLH POINTS DEDUCTED"
+    end 
+
+
+    def face_mask_problem
+        puts " "
+        puts "YOUR FACE MASK IS NOT COMFORTABLE"
+        puts " "
+        sleep(2)
+        choices = ["NOTHING, IM NOT WEARING GLOVES", "ADJUST IT! IM GOING TO NEED TO WEAR THIS THE WHOLE TRIP!"]
+        response = @@prompt.multi_select('WHAT DO YOU DO?', choices, min: 1, max: 1)
+        puts " "
+        sleep(2)
+        case response[0]
+        when "NOTHING, IM NOT WEARING GLOVES"
+            puts "GOOD THINKING. NO HEALTH POINTS DEDCUTED"
+            puts " "
+        when "ADJUST IT! IM GOING TO NEED TO WEAR THIS THE WHOLE TRIP!"
+            puts "IF THE VIRUS WAS ON YOUR HANDS YOUR FACE MASK HAS BEEN COMPROMISED AND RENDERED USELESS"
+            puts "  "
+            sleep(2)
+            puts "LOSE 4 HEALTH POINTS "
+            puts " "
+            sleep(2)
+            self.hp -= 4 
+        end 
+    end 
+
+
     def item_problem 
         if self.purell != nil 
-            puts "#{self.name.upcase} PUTS ON THIER SHOES AND WIPES DOWN THE DOOR HANDLE ON THEIR WAY OUT"
-            puts " "
-            sleep(2)
-            choices = ["APPLY MY PURELL!", "NO NEED FOR PURELL, I JUST WIPED DOWN THE DOOR HANDLE"]
-            response = @@prompt.multi_select('WHAT IS YOUR NEXT MOVE?', choices, min: 1, max: 1)
-            puts " "
-            sleep(2)
-            case response[0]
-            when "APPLY MY PURELL!"
-                apply_purell
-            when "NO NEED FOR PURELL, I JUST WIPED DOWN THE DOOR HANDLE"
-                puts " "
-                puts "THOUGH THAT MAY BE TRUE, YOU STILL RISK CROSS CONTAMINATION"
-                puts "  "
-                sleep(2)
-                puts "FOUR HEATLH POINTS DEDUCTED"
-                puts " "
-                sleep(2)
-                self.hp -= 4 
-            end 
+             purrell_prob
         elsif self.rubber_glove != nil 
-            puts "  "
-            puts "DONT FORGET TO TAKE OFF YOUR GLOVES BEFORE SEEING #{self.important_person}"
-            puts " "
-            sleep(2)
-            puts "NO HEATLH POINTS DEDUCTED"
+            rubber_glove_prob
 
         elsif self.face_mask != nil
-            puts " "
-            puts "YOUR FACE MASK IS NOT COMFORTABLE"
-            puts " "
-            sleep(2)
-            choices = ["NOTHING, IM NOT WEARING GLOVES", "ADJUST IT! IM GOING TO NEED TO WEAR THIS THE WHOLE TRIP!"]
-            response = @@prompt.multi_select('WHAT DO YOU DO?', choices, min: 1, max: 1)
-            puts " "
-            sleep(2)
-            case response[0]
-            when "NOTHING, IM NOT WEARING GLOVES"
-                puts "GOOD THINKING. NO HEALTH POINTS DEDCUTED"
-                puts " "
-            when "ADJUST IT! IM GOING TO NEED TO WEAR THIS THE WHOLE TRIP!"
-                puts "IF THE VIRUS WAS ON YOUR HANDS YOUR FACE MASK HAS BEEN COMPROMISED AND RENDERED USELESS"
-                puts "  "
-                sleep(2)
-                puts "LOSE 4 HEALTH POINTS "
-                puts " "
-                sleep(2)
-                self.hp -= 4 
-            end 
+            face_mask_problem
         end 
         death_status
         sleep(3)
@@ -857,7 +891,6 @@ class User < ActiveRecord::Base
         sleep(3)
         death_status
         self.buying_toilet_paper 
-        
     end 
 
 
@@ -969,29 +1002,29 @@ def death_status
 end
 
 
-    def self.graveyard 
-    person = self.all.last.name 
-    puts "        _  /)"
-    puts "        mo / )"
-    puts "        |/)\)"
-    puts "         /\_"
-    puts "         \__|="
-    puts "        (    )"
-    puts "        __)(__"
-    puts "  _____/      \\_____"
-    puts " |  _     ___   _   ||"
-    puts " | | \     |   | \  ||"
-    puts " | |  |    |   |  | ||"
-    puts " | |_/     |   |_/  ||"
-    puts " | | \     |   |    ||"
-    puts " | |  \    |   |    ||"
-    puts " | |   \. _|_. | .  ||"
-    puts " |                  ||"
-    puts " |  #{person}  ||"
-    puts " |                  ||"
-    puts "*       | *   **    * **   |**      **"
-    puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"  
-    end 
+    # def self.graveyard 
+    # person = self.all.last.name 
+    # puts "        _  /)"
+    # puts "        mo / )"
+    # puts "        |/)\)"
+    # puts "         /\_"
+    # puts "         \__|="
+    # puts "        (    )"
+    # puts "        __)(__"
+    # puts "  _____/      \\_____"
+    # puts " |  _     ___   _   ||"
+    # puts " | | \     |   | \  ||"
+    # puts " | |  |    |   |  | ||"
+    # puts " | |_/     |   |_/  ||"
+    # puts " | | \     |   |    ||"
+    # puts " | |  \    |   |    ||"
+    # puts " | |   \. _|_. | .  ||"
+    # puts " |                  ||"
+    # puts " |  #{person}  ||"
+    # puts " |                  ||"
+    # puts "*       | *   **    * **   |**      **"
+    # puts "\))ejm97/.,(//,,..,,\||(,,.,\\,.((//"  
+    # end 
 
 
 end
