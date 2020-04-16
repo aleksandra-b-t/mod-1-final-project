@@ -136,7 +136,7 @@ class User < ActiveRecord::Base
             item = RubberGlove.create
             self.rubber_glove = item
         when "FACE MASK"
-            item = FACE MASK.create
+            item = facemask.create
             self.face_mask = item
         end 
        
@@ -149,7 +149,7 @@ class User < ActiveRecord::Base
         #     item = RubberGlove.create
         #     self.rubber_glove = item
         # when "FACE MASK"
-        #     item = FACE MASK.create
+        #     item = facemask.create
         #     self.face_mask = item
         # end 
       puts " "
@@ -340,7 +340,7 @@ class User < ActiveRecord::Base
         puts " "
         sleep(2)
       
-      choices = ["GO OVER AND PET HER!", "BEND DOWN AND LET HER LICK YOUR FACE", "CROSS THE STREET"]
+      choices = ["GO OVER AND SAY HI!", "BEND DOWN AND PET HER", "CROSS THE STREET"]
       response = @@prompt.multi_select('HOW DO YOU WISH TO REACT?', choices, min: 1, max: 1)
        sleep(2)
        puts " "
