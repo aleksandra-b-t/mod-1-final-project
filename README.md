@@ -16,7 +16,7 @@ VSCode
 Ruby
 
 
-**The following Ruby gems are required (all are included in Gemfile):**
+**These gems are all are included in Gemfile):**
 - gem 'activerecord'
 - gem 'sinatra-activerecord'
 - gem 'rake'
