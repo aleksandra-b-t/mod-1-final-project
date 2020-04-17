@@ -7,77 +7,92 @@ class User < ActiveRecord::Base
     has_many :lysols 
     @@prompt = TTY::Prompt.new
 
-    def age_prob 
+    def age_prob
         case self.character_type
         when "TEEN"
-           your_a_teen
            see_a_friend
            see_a_cute_dog
            encounter_hobo
+           drop_item
+        #    your_a_teen
         when "SENIOR"
-            your_a_senior
             see_a_cute_dog
             encounter_hobo
+            drop_item
+            your_a_senior
         when "ADULT"
-            your_an_adult
             see_a_friend
             encounter_hobo
-        end 
-    end 
+            drop_item
+            your_an_adult
+        end
+    end
 
 
-    
 
-    def your_a_teen
-        system("clear")
-        @@prompt.warn("|#######====================#######|")
-        @@prompt.warn("|#(5)*UNITED STATES OF AMERICA*(5)#|")
-        @@prompt.warn("|#**          {===}   ********  **#|")
-        @@prompt.warn("|*# {G}      { (G) }             #*|")
-        @@prompt.warn("|#*  ******  | (W) |   F I V E   *#|")
-        @@prompt.warn("|#(5)         {===}            (5)#|")
-        @@prompt.warn("|##========FIVE DOLLARS==========##|")
-        @@prompt.warn("------------------------------------")
-        puts "  "
-        puts "  "
-        sleep(2)
-        puts "TOILET PAPER IS LAME. WHY DOES #{self.important_person} EVEN NEED IT?"
-        puts "  "
-        sleep(2)
-        puts "YOU REACH INTO YOUR POCKET AND PULL OUT A COUPLE 5 DOLLAR BILLS"
-        puts "  "
-        sleep(2)
-        puts "HOW MUCH DOES TOILET PAPER COST?"
-        puts " "
-        sleep(2)
-        choices = ["STOP AT THE CANDY STORE AND BUY $15 WORTH OF CANDY", "CONTINUE TO THE STORE, YOU CAN GET CHIPS WHILE YOU'RE THERE", "STOP AT YOUR FAV SANDWHICH SHOP FOR PICKUP, YOUVE GOT JUST ENOUGH MONEY FOR A SANDWHICH!"]
-        response = @@prompt.multi_select("YOU'RE SUDDENLY FEELING SUPER HUNGRY. WHAT DO YOU DO?", choices, min: 1, max: 1)
-        puts "  "
-        case response[0]
-
-        when "STOP AT THE CANDY STORE AND BUY $15 WORTH OF CANDY"
-            puts "THE CANDY STORE IS CLOSED AND THE OTHER TEENS STANDING OUTSIDE ARE CARRYING THE VIRUS"
-            sleep(2)
-            puts "  "
-            puts "ONE OF THEM SNEEZES ON YOU. LOSE 4 HEALTH POINTS"
+    def hp_check
+        if self.hp < 1
+            sleep(3)
+            self.death_status
+        else
             puts " "
             sleep(2)
-            self.hp -= 4 
+            puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
+            sleep(3)
+        end
+    end
 
-        when "CONTINUE TO THE STORE, YOU CAN GET CHIPS WHILE YOU'RE THERE"
-            puts "NICE JOB! NO HEALTH POINTS DEDUCTED"
-            sleep(2)
 
-        when "STOP AT YOUR FAV SANDWHICH SHOP FOR PICKUP, YOUVE GOT JUST ENOUGH MONEY FOR A SANDWHICH!"
-            puts "YOUR SANDWHICH IS DELICIOUS BUT YOUVE FAILED TO GET #{self.important_person} TOILET PAPER"
-            sleep(2)
-            self.hp -= 15 
 
-        end 
-        puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
-        sleep(2)
-      self.death_status
-    end 
+    # def your_a_teen
+    #     system("clear")
+    #     @@prompt.warn("|#######====================#######|")
+    #     @@prompt.warn("|#(5)*UNITED STATES OF AMERICA*(5)#|")
+    #     @@prompt.warn("|#**          {===}   ********  **#|")
+    #     @@prompt.warn("|*# {G}      { (G) }             #*|")
+    #     @@prompt.warn("|#*  ******  | (W) |   F I V E   *#|")
+    #     @@prompt.warn("|#(5)         {===}            (5)#|")
+    #     @@prompt.warn("|##========FIVE DOLLARS==========##|")
+    #     @@prompt.warn("------------------------------------")
+    #     puts "  "
+    #     puts "  "
+    #     sleep(2)
+    #     puts "TOILET PAPER IS LAME. WHY DOES #{self.important_person} EVEN NEED IT?"
+    #     puts "  "
+    #     sleep(2)
+    #     puts "YOU REACH INTO YOUR POCKET AND PULL OUT A COUPLE 5 DOLLAR BILLS"
+    #     puts "  "
+    #     sleep(2)
+    #     puts "HOW MUCH DOES TOILET PAPER COST?"
+    #     puts " "
+    #     sleep(2)
+    #     choices = ["STOP AT THE CANDY STORE AND BUY 015 WORTH OF CANDY", "CONTINUE TO THE STORE, YOU CAN GET CHIPS WHILE YOU'RE THERE", "STOP AT YOUR FAV SANDWHICH SHOP FOR PICKUP, YOUVE GOT JUST ENOUGH MONEY FOR A SANDWHICH!"]
+    #     response = @@prompt.multi_select("YOU'RE SUDDENLY FEELING SUPER HUNGRY. WHAT DO YOU DO?", choices, min: 1, max: 1)
+    #     puts "  "
+    #     case response[0]
+
+    #     when "STOP AT THE CANDY STORE AND BUY 015 WORTH OF CANDY"
+    #         puts "THE CANDY STORE IS CLOSED AND THE OTHER TEENS STANDING OUTSIDE ARE CARRYING THE VIRUS"
+    #         sleep(2)
+    #         puts "  "
+    #         puts "ONE OF THEM SNEEZES ON YOU. LOSE 4 HEALTH POINTS"
+    #         puts " "
+    #         sleep(2)
+    #         self.hp -= 4 
+
+    #     when "CONTINUE TO THE STORE, YOU CAN GET CHIPS WHILE YOU'RE THERE"
+    #         puts "NICE JOB! NO HEALTH POINTS DEDUCTED"
+    #         sleep(2)
+
+    #     when "STOP AT YOUR FAV SANDWHICH SHOP FOR PICKUP, YOUVE GOT JUST ENOUGH MONEY FOR A SANDWHICH!"
+    #         puts "YOUR SANDWHICH IS DELICIOUS BUT YOUVE FAILED TO GET #{self.important_person} TOILET PAPER"
+    #         sleep(2)
+    #         puts " "
+    #         self.hp -= 15 
+
+    #     end 
+    #     self.hp_check
+    # end 
 
 
     def your_a_senior
@@ -111,9 +126,7 @@ class User < ActiveRecord::Base
             puts "YOUR PERSISTANCE IS ADMIRABLE. NO HEALTH POINTS DEDUCTED"
             sleep(2)
         end 
-        puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
-        sleep(2)
-      self.death_status
+        self.hp_check
     end 
 
     def your_an_adult 
@@ -136,14 +149,14 @@ class User < ActiveRecord::Base
                 sleep(2)
             elsif self.rubber_glove != nil 
                 puts " "
-                puts "#{self.name} MAKES A FACEMASK OUT OF THEIR SCARF"
+                puts "YOU MAKE A FACEMASK OUT OF YOUR SCARF"
                 sleep(2)
                 puts " "
                 sleep(2)
                 puts "NO HEALTH POINTS DEDUCTED"
             elsif self.purell != nil 
                 puts "  "
-                puts "UNFORTUNATELY #{self.name} ONLY GRABBED PURELL ON THIER WAY OUT"
+                puts "UNFORTUNATELY YOU ONLY GRABBED PURELL ON YOUR WAY OUT"
                 sleep(2)
                 puts " "
                 puts "PURELL ALONE IS NOT ENOUGH TO STOP THE VIRUS"
@@ -168,9 +181,7 @@ class User < ActiveRecord::Base
             sleep(2)
              self.hp -= 8 
         end 
-        puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
-        sleep(2)
-        self.death_status
+        self.hp_check
     end 
 
 
@@ -290,7 +301,7 @@ class User < ActiveRecord::Base
 
 
     def purrell_prob
-        puts "#{self.name.upcase} PUTS ON THIER SHOES AND WIPES DOWN THE DOOR HANDLE ON THEIR WAY OUT"
+        puts "YOU PUT ON YOUR SHOES AND WIPE DOWN THE DOOR HANDLE ON YOUR WAY OUT"
         puts " "
         sleep(2)
         choices = ["APPLY MY PURELL!", "NO NEED FOR PURELL, I JUST WIPED DOWN THE DOOR HANDLE"]
@@ -301,14 +312,12 @@ class User < ActiveRecord::Base
         when "APPLY MY PURELL!"
             apply_purell
         when "NO NEED FOR PURELL, I JUST WIPED DOWN THE DOOR HANDLE"
-            puts " "
             puts "THOUGH THAT MAY BE TRUE, YOU STILL RISK CROSS CONTAMINATION"
             puts "  "
             sleep(2)
             puts "FOUR HEATLH POINTS DEDUCTED"
-            puts " "
-            sleep(2)
             self.hp -= 4 
+            self.hp_check 
         end 
     end 
 
@@ -317,12 +326,11 @@ class User < ActiveRecord::Base
         puts " "
         sleep(2)
         puts "NO HEATLH POINTS DEDUCTED"
-        sleep(2)
+        self.hp_check 
     end 
 
 
     def face_mask_problem
-        puts " "
         puts "YOUR FACE MASK IS NOT COMFORTABLE"
         puts " "
         sleep(2)
@@ -333,17 +341,11 @@ class User < ActiveRecord::Base
         case response[0]
         when "NOTHING, IM NOT WEARING GLOVES"
             puts "GOOD THINKING. NO HEALTH POINTS DEDCUTED"
-            puts " "
         when "ADJUST IT! IM GOING TO NEED TO WEAR THIS THE WHOLE TRIP!"
-            puts "IF THE VIRUS WAS ON YOUR HANDS YOUR FACE MASK HAS BEEN COMPROMISED AND RENDERED USELESS"
-            puts "  "
-            sleep(2)
-            puts "LOSE 4 HEALTH POINTS "
-            puts " "
-            sleep(2)
+            puts "IF THE VIRUS WAS ON YOUR HANDS YOUR FACE MASK WOULD BE RENDERED USELESS. LOSE 4 HEALTH POINTS"
             self.hp -= 4 
         end 
-        puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
+        self.hp_check 
     end 
 
 
@@ -356,8 +358,6 @@ class User < ActiveRecord::Base
         elsif self.face_mask != nil
             face_mask_problem
         end 
-        death_status
-        sleep(3)
     end 
 
 
@@ -366,13 +366,57 @@ class User < ActiveRecord::Base
         if self.purell 
             puts "YOU USED YOUR PURELL. ADD 2 HEALTH POINTS"
             self.hp += 2
+            sleep(3)
         end 
-        sleep(2)
-        puts "  "
-        puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
-        sleep(3)
     end 
 
+
+    def drop_pur 
+        puts " "
+        puts "YOU PULL OUT YOUR PURELL AND ACCIDENTLY DROP IT RIGHT ABOVE THE SEWER GRATE"
+        puts " "
+        sleep(2)
+        choices = ["HELL NO, ITS SO DIRTY!", "SURE, WHAT ARE THE CHANCES CARONAVIRUS HAS MADE IT TO THIS SEWER", "ILL JUST BUY MORE LATER"]
+        response = @@prompt.multi_select("DO YOU PICK IT UP?", choices, min: 1, max: 1)
+        puts " "
+        sleep(2)
+          case response[0]
+          when "HELL NO, ITS SO DIRTY!"
+            puts "LOOSE 2 HEALTH POINTS"
+            self.purell = nil 
+            self.hp -= 2
+          when "SURE, WHAT ARE THE CHANCES CARONAVIRUS HAS MADE IT TO THIS SEWER"
+            puts "GOOD WORK, NO HEALTH POINTS DEDUCETED"
+            puts "  "
+            sleep(2)
+            choices = ["RE-APPLY MY PURELL", "NOPE, LETS GO!"]
+            response = @@prompt.multi_select("ANYTHING ELSE", choices, min: 1, max: 1)
+            puts " "
+            case response[0]
+            when "RE-APPLY MY PURELL"
+                apply_purell
+            when "NOPE, LETS GO!"
+                puts "GROSS, LOOSE 1 HEALTH POINT"
+                self.hp -= 2 
+                self.hp_check
+            end 
+            when "ILL JUST BUY MORE LATER"
+                puts "EVERYONE IS OUT OF PURELL"
+                puts " "
+                sleep(2)
+                puts "LOOSE 2 HEALTH POINTS"
+                self.purell = nil 
+                self.hp -= 2
+                self.hp_check
+          end 
+       end 
+
+
+       def drop_item
+        if self.purell != nil 
+            self.drop_pur
+        end 
+       end 
 
 
     def see_a_friend 
@@ -393,7 +437,7 @@ class User < ActiveRecord::Base
         puts " "
         @@prompt.warn("   (          |.   /      . (      ")
         puts " "
-        @@prompt.warn("   $$         (.  (_'.   , )|`     ")
+        @@prompt.warn("   00         (.  (_'.   , )|`     ")
         puts " "
         @@prompt.warn("   ||         |)`-....--'/  ' l    ")
         puts " "
@@ -427,7 +471,7 @@ class User < ActiveRecord::Base
         puts " "
         case response[0]
         when "SPRAY LYSOL IN HIS DIRECTION AND RUN AWAY"
-            puts "TAKE THAT GREG! YOU ADVANCE WITH NO HEALTH POINTS DEDUCTED"
+            puts "TAKE THAT GREG! SMOKERS ARE GROSS! YOU ADVANCE WITH NO HEALTH POINTS DEDUCTED"
         when "SMILE AND WAVE FROM A FAR"
             puts "GOOD WORK! NO HEALTH POINTS DEDUCTED"
         when "HE LOOKS HEALTHY! CROSS THE STREET AND SAY HELLO"
@@ -446,11 +490,7 @@ class User < ActiveRecord::Base
             end 
     
         end 
-        sleep(2)
-        puts " "
-        puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
-        sleep(3)
-        self.death_status
+        self.hp_check
     end 
 
 
@@ -492,22 +532,22 @@ class User < ActiveRecord::Base
       case response[0]
       when "GO OVER AND SAY HI!"
         puts "YOU AVOIDED PETTING THE DOG BUT UNFORNATELY SHE GOT OVERLY EXCITED AND PEED ON YOU. LOSE 4 HEALTH POINTS"
+        sleep(2)
         self.hp -= 4
       when "BEND DOWN AND PET HER"
         puts "THE DOG IS HAPPY TO SEE YOU AND LICKS YOUR FACE"
         puts " "
+        sleep(2)
         puts "UNFORTUNATELY IS CARRYING THE VIRUS"
         puts " "
+        sleep(2)
         @@prompt.error("YOU'VE CONTRACTED THE VIRUS!")
+        sleep(2)
         self.hp -= 40 
       when "CROSS THE STREET"
         puts "GOOD WORK! HER OWNER IS INFECTED WITH THE VIRUS. NO HEALTH POINTS DEDUCTED"
       end 
-      sleep(2)
-      puts " "
-      puts "YOUR HEALTH IS NOW AT: #{self.hp}" 
-      sleep(3)
-      self.death_status
+      self.hp_check
     end 
 
 
@@ -533,6 +573,7 @@ class User < ActiveRecord::Base
         sleep(2)
         puts "AS YOU CONTINUE DOWN THE BLOCK, YOU SEE A HOMELESS MAN APPROACHING YOU AT FULL SPEED"
         puts " "
+        sleep(2)
         puts "HE IS CLEARLY ANGRY AT THE WORLD AND WANTS TO TAKE IT OUT ON YOU"
         puts " "
         sleep(2) 
@@ -541,7 +582,7 @@ class User < ActiveRecord::Base
         puts "                                                "
         sleep(2)
         if response[0] == "USE PANIC CRY!"
-            "#{self.name}: #{self.panic_cry}"
+            puts "#{self.name}: #{self.panic_cry}"
             puts "  "
             sleep(2)
             case self.panic_cry
@@ -552,6 +593,7 @@ class User < ActiveRecord::Base
             when "GET A JOB!"
                 puts "HE STOPS AND EXPLAINS THAT HE IS ACTUALLY A RHODES SCHOLAR AND HIS LIFE CHOICES ARE NON OF YOUR CONCERN"
                 puts " "
+                sleep(2)
                 puts "NO HEALTH POINTS DEDUCTED AND YOU LEARN A VALUABLE LESSON"
                 sleep(2)
             when "(COUGH, COUGH)"
@@ -562,12 +604,7 @@ class User < ActiveRecord::Base
         else
             puts "HE GASPS AND YOU MAKE A CLEAN GETAWAY. NO HEALTH POINTS DEDUCTED"
         end
-        sleep(2)
-        puts "                                                "
-        puts "CURRENT HEALTH: #{self.hp}" 
-        puts "                                                "
-        sleep(3)
-        self.death_status
+        self.hp_check
     end    
 
 
@@ -634,6 +671,9 @@ class User < ActiveRecord::Base
                 puts " "
                 puts "SMART MOVE! YOU'VE PROTECTED YOURSELF FROM CATCHING THE VIRUS NO HEALTH POINTS DEDUCTED"
                 sleep(2)
+                puts " "
+                puts "CURRENT HEALTH: #{self.hp}" 
+                sleep(3)
             end 
 
         elsif self.face_mask != nil
@@ -643,21 +683,22 @@ class User < ActiveRecord::Base
             choices = ["POCKETS!!!", "WHO CARES? I HAVE A FACE MASK"]
             response = @@prompt.multi_select('WHAT DO YOU DO? WITH YOUR HANDS', choices, min: 1, max: 1)
             puts " "
+            sleep(2)
             case response[0]
             when "POCKETS!!!"
                 puts "GOOD THINKING. NO HEALTH POINTS DEDCUTED"
-                puts " "
-                sleep(2)
             when "WHO CARES? I HAVE A FACE MASK"
                 puts "TRUE... BUT THE VIRUS GETS ON YOUR HANDS AND YOU SPREAD IT TO #{self.important_person}"
                 puts " "
                 @@prompt.error("YOU'VE CONTRACTED THE VIRUS!")        
-                sleep(2)
                 self.hp -= 40
             end 
+        else
+            sleep(2)
+            puts "UNFORTUNATELY, YOU DON'T HAVE PURELL TO SANITIZE YOUR HANDS. LOSE 1 HEALTH POINT."
+            self.hp -= 1
         end 
-        sleep(3)
-        death_status
+        self.hp_check
         self.buying_toilet_paper 
     end 
 
@@ -682,7 +723,7 @@ class User < ActiveRecord::Base
         puts " "
         puts " "
         sleep(2)
-        puts "FINALLY #{self.name.upcase} YOU HAVE MADE IT TO THE DELI"
+        puts "FINALLY #{self.name.upcase}! YOU HAVE MADE IT TO THE DELI"
         puts " "
         sleep(2)
         puts "TO YOUR DISMAY THE STORE IS ALMOST OUT OF TOILET PAPER"
@@ -699,9 +740,7 @@ class User < ActiveRecord::Base
     when "SINGLE PLY"
         puts " "
         puts "YOUR #{self.important_person} IS GOING TO LOVE IT!"
-        puts " "
-        sleep(2)
-        puts "CONGRADUATIONS YOUR GOT YOUR TOILET PAPER! YOU'VE WON THE GAME!!!"
+        self.winner
         #holding up toilet paper art?
     when "FANCY CHARMIN"
         puts " "
@@ -710,17 +749,15 @@ class User < ActiveRecord::Base
         sleep(2)
         puts "YOU SNEEZE AND ACCIDENTALLY TOUCH YOUR FACE"
         puts " "
+        @@prompt.error("YOU'VE CONTRACTED THE VIRUS!")
         self.hp -= 40
+        self.hp_check
     when "BODEGA BRAND RECYLEABLE"
         puts " "
       puts "ODD CHOICE BUT HEY, BEGGERS CAN'T BE CHOOSERS!"
-      puts " "
-      sleep(2)
-      puts "CONGRADULATIONS YOU HAVE SUCCESSFUL GOTTEN #{self.important_person} THEIR TOILET PAPER AND WON THE GAME"
+      self.winner
       #holding up toilet paper art?
-     end 
-     sleep(3)
-    self.death_status
+     end
    end 
 
 
@@ -732,41 +769,73 @@ class User < ActiveRecord::Base
 
 
 def death_status
-    if self.hp < 1
-        system("clear")
-        puts "                                                "
-        sleep(1)
-        @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("▄██▀▀▀█▄┼▄██▀▀▀██▄┼███▀█▄█▀███┼██▀▀▀")
-        @@prompt.error("██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼█┼┼┼██┼██┼┼┼")
-        @@prompt.error("██┼┼┼▄▄▄┼██▄▄▄▄▄██┼██┼┼┼▀┼┼┼██┼██▀▀▀")
-        @@prompt.error("██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██┼┼┼")
-        @@prompt.error("▀██▄▄▄██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██▄▄▄")
-        @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("▄██▀▀▀██▄┼▀███┼┼██▀┼██▀▀▀┼██▀▀▀▀██▄┼")
-        @@prompt.error("██┼┼┼┼┼██┼┼┼██┼┼██┼┼██┼┼┼┼██┼┼┼┼┼██┼")
-        @@prompt.error("██┼┼┼┼┼██┼┼┼██┼┼██┼┼██▀▀▀┼██▄▄▄▄▄▀▀┼")
-        @@prompt.error("██┼┼┼┼┼██┼┼┼██┼┼█▀┼┼██┼┼┼┼██┼┼┼┼██┼┼")
-        @@prompt.error("▀██▄▄▄██▀┼┼┼─▀█▀┼┼─┼██▄▄▄┼██┼┼┼┼┼██▄")
-        @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼██┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼██┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼████▄┼┼┼▄▄▄▄▄▄▄┼┼┼▄████┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼┼▀▀█▄█████████▄█▀▀┼┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼█████████████┼┼┼┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼██▀▀▀███▀▀▀██┼┼┼┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼██┼┼┼███┼┼┼██┼┼┼┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼█████▀▄▀█████┼┼┼┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼███████████┼┼┼┼┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼▄▄▄██┼┼█▀█▀█┼┼██▄▄▄┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼▀▀██┼┼┼┼┼┼┼┼┼┼┼██▀▀┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼")
-        @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼")
-        puts " "
-        puts " "
-        @@prompt.select("EXIT GAME", ["EXIT"])
-        sleep(30)    
-    end
+    system("clear")
+    @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("▄██▀▀▀█▄┼▄██▀▀▀██▄┼███▀█▄█▀███┼██▀▀▀")
+    @@prompt.error("██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼█┼┼┼██┼██┼┼┼")
+    @@prompt.error("██┼┼┼▄▄▄┼██▄▄▄▄▄██┼██┼┼┼▀┼┼┼██┼██▀▀▀")
+    @@prompt.error("██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██┼┼┼")
+    @@prompt.error("▀██▄▄▄██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██▄▄▄")
+    @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("▄██▀▀▀██▄┼▀███┼┼██▀┼██▀▀▀┼██▀▀▀▀██▄┼")
+    @@prompt.error("██┼┼┼┼┼██┼┼┼██┼┼██┼┼██┼┼┼┼██┼┼┼┼┼██┼")
+    @@prompt.error("██┼┼┼┼┼██┼┼┼██┼┼██┼┼██▀▀▀┼██▄▄▄▄▄▀▀┼")
+    @@prompt.error("██┼┼┼┼┼██┼┼┼██┼┼█▀┼┼██┼┼┼┼██┼┼┼┼██┼┼")
+    @@prompt.error("▀██▄▄▄██▀┼┼┼─▀█▀┼┼─┼██▄▄▄┼██┼┼┼┼┼██▄")
+    @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼┼┼██┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼██┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼████▄┼┼┼▄▄▄▄▄▄▄┼┼┼▄████┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼┼┼┼▀▀█▄█████████▄█▀▀┼┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼█████████████┼┼┼┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼██▀▀▀███▀▀▀██┼┼┼┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼██┼┼┼███┼┼┼██┼┼┼┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼█████▀▄▀█████┼┼┼┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼███████████┼┼┼┼┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼┼┼▄▄▄██┼┼█▀█▀█┼┼██▄▄▄┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼┼┼▀▀██┼┼┼┼┼┼┼┼┼┼┼██▀▀┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼")
+    @@prompt.error("┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼")
+    puts " "
+    puts " "
+    @@prompt.select("EXIT GAME", ["EXIT"])
+    sleep(30)    
+end
 
+
+def winner
+    system("clear")
+    sleep(2)
+    puts " "
+    puts " "
+    @@prompt.ok(" /00     /00 /000000  /00   /00 /00 /00    /00 /00000000      /00      /00  /000000  /00   /00     /00 /00 /00")
+    @@prompt.ok("|  00   /00//00__  00| 00  | 00| 0/| 00   | 00| 00_____/     | 00  /0 | 00 /00__  00| 000 | 00    | 00| 00| 00")
+    @@prompt.ok(" l  00 /00/| 00  l 00| 00  | 00|_/ | 00   | 00| 00           | 00 /000| 00| 00  l 00| 0000| 00    | 00| 00| 00")
+    @@prompt.ok("  l  0000/ | 00  | 00| 00  | 00    |  00 / 00/| 00000        | 00/00 00 00| 00  | 00| 00 00 00    | 00| 00| 00")
+    @@prompt.ok("   l  00/  | 00  | 00| 00  | 00     l  00 00/ | 00__/        | 0000_  0000| 00  | 00| 00  0000    |__/|__/|__/")
+    @@prompt.ok("    | 00   | 00  | 00| 00  | 00      l  000/  | 00           | 000/ l  000| 00  | 00| 00l  000                ")
+    puts " "
+    @@prompt.ok("    | 00   |  000000/|  000000/       l  0/   | 00000000     | 00/   l  00|  000000/| 00 l  00     /00 /00 /00")
+    @@prompt.ok("    |__/    l______/  l______/         l_/    |________/     |__/     l__/ l______/ |__/  l__/    |__/|__/|__/")
+    puts " "
+    puts " "
+    @@prompt.ok("    .--.----------------.")
+    @@prompt.ok("    /    l  l l l l l l l l")
+    @@prompt.ok("   /      l                l")
+    @@prompt.ok("  /        l                l")
+    @@prompt.ok(" /          |                |")
+    @@prompt.ok(" |   (0)    |                |")
+    @@prompt.ok(" |  (000)   |  | | | | | | | |")
+    @@prompt.ok(" |  (000)   |                |")
+    @@prompt.ok(" l   (0)    |                |")
+    @@prompt.ok("  l        //                /")
+    @@prompt.ok("   l      //                /")
+    @@prompt.ok("    l    /| | | | | | | | ||")
+    @@prompt.ok("     `--'-|| | | | | | | | |")
+    @@prompt.ok("           l                l")
+    @@prompt.ok("            l                l")
+    @@prompt.ok("             l                l")
+    @@prompt.ok("              ll l l l l l l l l")
+    @@prompt.ok("               l................l")
 end
 
 
