@@ -17,14 +17,14 @@ Ruby
 
 
 **The following Ruby gems are required (all are included in Gemfile):**
-gem 'activerecord'
-gem 'sinatra-activerecord'
-gem 'rake'
-gem 'require_all'
-gem 'sqlite3'
-gem 'pry'
-gem 'faker'
-gem 'tty-prompt'
+- gem 'activerecord'
+- gem 'sinatra-activerecord'
+- gem 'rake'
+- gem 'require_all'
+- gem 'sqlite3'
+- gem 'pry'
+- gem 'faker'
+- gem 'tty-prompt'
 
 
 ## RUN APPLICATION:
