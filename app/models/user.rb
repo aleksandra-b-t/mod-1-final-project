@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
         when "TEEN"
            your_a_teen
            see_a_friend
+           see_a_cute_dog
            encounter_hobo
         when "SENIOR"
             your_a_senior
@@ -29,6 +30,17 @@ class User < ActiveRecord::Base
 
     def your_a_teen
         system("clear")
+        @@prompt.warn("|#######====================#######|")
+        @@prompt.warn("|#(5)*UNITED STATES OF AMERICA*(5)#|")
+        @@prompt.warn("|#**          {===}   ********  **#|")
+        @@prompt.warn("|*# {G}      { (G) }             #*|")
+        @@prompt.warn("|#*  ******  | (W) |   F I V E   *#|")
+        @@prompt.warn("|#(5)         {===}            (5)#|")
+        @@prompt.warn("|##========FIVE DOLLARS==========##|")
+        @@prompt.warn("------------------------------------")
+        puts "  "
+        puts "  "
+        sleep(2)
         puts "TOILET PAPER IS LAME. WHY DOES #{self.important_person} EVEN NEED IT?"
         puts "  "
         sleep(2)
@@ -37,12 +49,13 @@ class User < ActiveRecord::Base
         sleep(2)
         puts "HOW MUCH DOES TOILET PAPER COST?"
         puts " "
+        sleep(2)
         choices = ["STOP AT THE CANDY STORE AND BUY $15 WORTH OF CANDY", "CONTINUE TO THE STORE, YOU CAN GET CHIPS WHILE YOU'RE THERE", "STOP AT YOUR FAV SANDWHICH SHOP FOR PICKUP, YOUVE GOT JUST ENOUGH MONEY FOR A SANDWHICH!"]
         response = @@prompt.multi_select("YOU'RE SUDDENLY FEELING SUPER HUNGRY. WHAT DO YOU DO?", choices, min: 1, max: 1)
+        puts "  "
         case response[0]
 
         when "STOP AT THE CANDY STORE AND BUY $15 WORTH OF CANDY"
-            puts "  "
             puts "THE CANDY STORE IS CLOSED AND THE OTHER TEENS STANDING OUTSIDE ARE CARRYING THE VIRUS"
             sleep(2)
             puts "  "
@@ -52,12 +65,10 @@ class User < ActiveRecord::Base
             self.hp -= 4 
 
         when "CONTINUE TO THE STORE, YOU CAN GET CHIPS WHILE YOU'RE THERE"
-            puts " "
             puts "NICE JOB! NO HEALTH POINTS DEDUCTED"
             sleep(2)
 
         when "STOP AT YOUR FAV SANDWHICH SHOP FOR PICKUP, YOUVE GOT JUST ENOUGH MONEY FOR A SANDWHICH!"
-            puts "  "
             puts "YOUR SANDWHICH IS DELICIOUS BUT YOUVE FAILED TO GET #{self.important_person} TOILET PAPER"
             sleep(2)
             self.hp -= 15 
