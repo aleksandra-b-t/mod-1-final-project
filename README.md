@@ -2,13 +2,8 @@
 # HASKETBALL
 
 
-============================================================
 
-## ELIZABETH KAREN AND STEPHEN CASES PRESENT:
-
-============================================================
-
-                                                                        
+## ELIZABETH KAREN AND STEPHEN CASES PRESENT:                                                                        
 # COVID QUEST                                                                                                         
 
 
